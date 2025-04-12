@@ -1,8 +1,9 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
-import { Home, CreditCard, User, History, LogOut } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Home, CreditCard, User, History, LogOut, BarChart2, Users, Settings, ScanLine } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NavItem {
   label: string;
@@ -10,11 +11,11 @@ interface NavItem {
   href: string;
 }
 
-interface NavBarProps {
-  userRole?: "student" | "admin" | "invigilator";
-}
+const NavBar = () => {
+  const { user } = useAuth();
+  const userRole = user?.role || "student";
+  const location = useLocation();
 
-const NavBar = ({ userRole = "student" }: NavBarProps) => {
   const getNavItems = (): NavItem[] => {
     switch (userRole) {
       case "student":
@@ -24,12 +25,20 @@ const NavBar = ({ userRole = "student" }: NavBarProps) => {
           { label: "History", icon: <History className="w-5 h-5" />, href: "/history" },
           { label: "Profile", icon: <User className="w-5 h-5" />, href: "/profile" },
         ];
-      case "admin":
-        // Admin nav items here when implementing admin role
-        return [];
       case "invigilator":
-        // Invigilator nav items here when implementing invigilator role
-        return [];
+        return [
+          { label: "Dashboard", icon: <Home className="w-5 h-5" />, href: "/" },
+          { label: "Scan QR", icon: <ScanLine className="w-5 h-5" />, href: "/scan" },
+          { label: "History", icon: <History className="w-5 h-5" />, href: "/scan-history" },
+          { label: "Profile", icon: <User className="w-5 h-5" />, href: "/profile" },
+        ];
+      case "admin":
+        return [
+          { label: "Dashboard", icon: <Home className="w-5 h-5" />, href: "/" },
+          { label: "Students", icon: <Users className="w-5 h-5" />, href: "/manage-students" },
+          { label: "Permits", icon: <CreditCard className="w-5 h-5" />, href: "/manage-permits" },
+          { label: "Settings", icon: <Settings className="w-5 h-5" />, href: "/settings" },
+        ];
       default:
         return [];
     }
@@ -41,17 +50,14 @@ const NavBar = ({ userRole = "student" }: NavBarProps) => {
     <nav className="fixed bottom-0 left-0 w-full bg-background border-t border-border z-50">
       <div className="flex justify-around items-center py-2 px-1">
         {navItems.map((item) => (
-          <NavItem key={item.href} item={item} />
+          <NavItem key={item.href} item={item} isActive={location.pathname === item.href} />
         ))}
       </div>
     </nav>
   );
 };
 
-const NavItem = ({ item }: { item: NavItem }) => {
-  // Check if this is the active route
-  const isActive = window.location.pathname === item.href;
-
+const NavItem = ({ item, isActive }: { item: NavItem; isActive: boolean }) => {
   return (
     <Link
       to={item.href}

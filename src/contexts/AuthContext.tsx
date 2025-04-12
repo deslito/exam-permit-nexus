@@ -7,8 +7,24 @@ const mockStudent = {
   name: "John Doe",
   regNumber: "UNI/2023/001",
   email: "john.doe@university.edu",
-  role: "student",
+  role: "student" as const,
   semester: "Fall 2023",
+};
+
+// Mock data for invigilator
+const mockInvigilator = {
+  id: "I789012",
+  name: "Dr. Jane Smith",
+  email: "jane.smith@university.edu",
+  role: "invigilator" as const,
+};
+
+// Mock data for admin
+const mockAdmin = {
+  id: "A456789",
+  name: "Admin User",
+  email: "admin@university.edu",
+  role: "admin" as const,
 };
 
 // Types
@@ -24,7 +40,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string, role: "student" | "admin" | "invigilator") => Promise<void>;
   logout: () => void;
   loading: boolean;
 }
@@ -54,7 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     checkAuth();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, role: "student" | "admin" | "invigilator" = "student") => {
     try {
       setLoading(true);
       
@@ -63,9 +79,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       // For now, we'll simulate a successful login with mock data
       if (email && password) {
-        // Mock login (replace with actual API call)
-        setUser(mockStudent);
-        localStorage.setItem("user", JSON.stringify(mockStudent));
+        // Mock login based on role (replace with actual API call)
+        let userData;
+        switch (role) {
+          case "student":
+            userData = mockStudent;
+            break;
+          case "invigilator":
+            userData = mockInvigilator;
+            break;
+          case "admin":
+            userData = mockAdmin;
+            break;
+          default:
+            userData = mockStudent;
+        }
+        
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
       } else {
         throw new Error("Invalid credentials");
       }

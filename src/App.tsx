@@ -12,11 +12,18 @@ import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
 
+// Invigilator pages
+import ScanQRPage from "./pages/ScanQRPage";
+import ScanHistoryPage from "./pages/ScanHistoryPage";
+
+// Admin pages
+import ManageStudentsPage from "./pages/ManageStudentsPage";
+
 const queryClient = new QueryClient();
 
 // Protected route component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, loading } = useAuth();
+const ProtectedRoute = ({ children, requiredRoles }: { children: React.ReactNode, requiredRoles?: Array<"student" | "admin" | "invigilator"> }) => {
+  const { isAuthenticated, loading, user } = useAuth();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -26,17 +33,49 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/login" replace />;
   }
 
+  // If roles are specified, check if user has required role
+  if (requiredRoles && user && !requiredRoles.includes(user.role)) {
+    return <Navigate to="/" replace />;
+  }
+
   return <>{children}</>;
 };
 
 const AppRoutes = () => {
+  const { user } = useAuth();
+  
+  // Default redirect based on user role
+  const getHomeRoute = () => {
+    if (!user) return "/login";
+    
+    switch (user.role) {
+      case "student": return "/";
+      case "invigilator": return "/scan";
+      case "admin": return "/manage-students";
+      default: return "/";
+    }
+  };
+
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-      <Route path="/permit" element={<ProtectedRoute><PermitPage /></ProtectedRoute>} />
-      <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
+      
+      {/* Student Routes */}
+      <Route path="/" element={<ProtectedRoute requiredRoles={["student"]}><DashboardPage /></ProtectedRoute>} />
+      <Route path="/permit" element={<ProtectedRoute requiredRoles={["student"]}><PermitPage /></ProtectedRoute>} />
+      <Route path="/history" element={<ProtectedRoute requiredRoles={["student"]}><HistoryPage /></ProtectedRoute>} />
+      
+      {/* Invigilator Routes */}
+      <Route path="/scan" element={<ProtectedRoute requiredRoles={["invigilator"]}><ScanQRPage /></ProtectedRoute>} />
+      <Route path="/scan-history" element={<ProtectedRoute requiredRoles={["invigilator"]}><ScanHistoryPage /></ProtectedRoute>} />
+      
+      {/* Admin Routes */}
+      <Route path="/manage-students" element={<ProtectedRoute requiredRoles={["admin"]}><ManageStudentsPage /></ProtectedRoute>} />
+      
+      {/* Common Routes */}
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+      
+      {/* 404 and Default Routes */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
