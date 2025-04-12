@@ -18,6 +18,9 @@ import ScanHistoryPage from "./pages/ScanHistoryPage";
 
 // Admin pages
 import ManageStudentsPage from "./pages/ManageStudentsPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import ManagePermitsPage from "./pages/ManagePermitsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -51,7 +54,7 @@ const AppRoutes = () => {
     switch (user.role) {
       case "student": return "/";
       case "invigilator": return "/scan";
-      case "admin": return "/manage-students";
+      case "admin": return "/";
       default: return "/";
     }
   };
@@ -61,7 +64,11 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       
       {/* Student Routes */}
-      <Route path="/" element={<ProtectedRoute requiredRoles={["student"]}><DashboardPage /></ProtectedRoute>} />
+      <Route path="/" element={
+        <ProtectedRoute>
+          {user?.role === "admin" ? <AdminDashboardPage /> : <DashboardPage />}
+        </ProtectedRoute>
+      } />
       <Route path="/permit" element={<ProtectedRoute requiredRoles={["student"]}><PermitPage /></ProtectedRoute>} />
       <Route path="/history" element={<ProtectedRoute requiredRoles={["student"]}><HistoryPage /></ProtectedRoute>} />
       
@@ -71,6 +78,8 @@ const AppRoutes = () => {
       
       {/* Admin Routes */}
       <Route path="/manage-students" element={<ProtectedRoute requiredRoles={["admin"]}><ManageStudentsPage /></ProtectedRoute>} />
+      <Route path="/manage-permits" element={<ProtectedRoute requiredRoles={["admin"]}><ManagePermitsPage /></ProtectedRoute>} />
+      <Route path="/settings" element={<ProtectedRoute requiredRoles={["admin"]}><SettingsPage /></ProtectedRoute>} />
       
       {/* Common Routes */}
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
