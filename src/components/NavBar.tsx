@@ -38,6 +38,7 @@ const NavBar = () => {
           { label: "Students", icon: <Users className="w-5 h-5" />, href: "/manage-students" },
           { label: "Permits", icon: <CreditCard className="w-5 h-5" />, href: "/manage-permits" },
           { label: "Settings", icon: <Settings className="w-5 h-5" />, href: "/settings" },
+          { label: "Profile", icon: <User className="w-5 h-5" />, href: "/profile" },
         ];
       default:
         return [];
