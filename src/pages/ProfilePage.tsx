@@ -91,7 +91,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <NavBar userRole="student" />
+      <NavBar />
     </div>
   );
 };
