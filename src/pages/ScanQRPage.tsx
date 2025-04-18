@@ -6,14 +6,24 @@ import { toast } from "sonner";
 import { QrCode, Upload } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import { StudentData } from "@/types/student";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ScanQRPage = () => {
   const navigate = useNavigate();
   const [scanning, setScanning] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   // Mock scan function - replace with actual QR scanning logic
   const handleScan = () => {
     setScanning(true);
+    setIsDrawerOpen(true);
     
     // Simulate QR code scanning with mock data
     setTimeout(() => {
@@ -26,11 +36,10 @@ const ScanQRPage = () => {
         regNumber: "UNI/2023/001",
         course: "Bachelor of Computer Science",
         semester: "Fall 2023",
-        feesBalance: 500, // Example balance, 0 would mean fully paid
+        feesBalance: 500,
         permitStatus: "VALID"
       };
       
-      // Navigate to student details page with the scanned data
       navigate("/student-details", { state: { studentData: mockStudentData } });
       toast.success("QR Code scanned successfully!");
     }, 2000);
@@ -82,6 +91,22 @@ const ScanQRPage = () => {
           </div>
         </div>
       </div>
+
+      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+        <DrawerContent side={isMobile ? "bottom" : "right"} className={isMobile ? "h-[85%]" : "w-[400px]"}>
+          <DrawerHeader>
+            <DrawerTitle>Scan Results</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-6">
+            <div className="animate-pulse space-y-4">
+              <div className="h-4 bg-muted rounded w-3/4"></div>
+              <div className="h-4 bg-muted rounded w-1/2"></div>
+              <div className="h-4 bg-muted rounded w-5/6"></div>
+            </div>
+          </div>
+        </DrawerContent>
+      </Drawer>
+
       <NavBar />
     </div>
   );
