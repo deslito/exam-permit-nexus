@@ -10,8 +10,13 @@ export interface PermitData {
   id: string;
   studentName: string;
   regNumber: string;
-  semester: string;
+  gender: string;
+  yearOfStudy: number;
+  semester: "I" | "II";
+  faculty: string;
+  department: string;
   courseName: string;
+  courseUnits: string[];
   examDate: string;
   status: "valid" | "pending" | "expired";
   photoUrl?: string;
@@ -28,8 +33,13 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
     id,
     studentName,
     regNumber,
+    gender,
+    yearOfStudy,
     semester,
+    faculty,
+    department,
     courseName,
+    courseUnits,
     examDate,
     status,
     photoUrl,
@@ -63,16 +73,41 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
         </Avatar>
         <div className="flex-1">
           <h3 className="font-bold text-lg">{courseName}</h3>
-          <p className="text-sm text-muted-foreground">Spring Semester 2025</p>
+          <p className="text-sm text-muted-foreground">Semester {semester} - Year {yearOfStudy}</p>
           <div className="mt-2">
             <p className="font-medium">{studentName}</p>
             <p className="text-xs text-muted-foreground">{regNumber}</p>
+            <p className="text-xs text-muted-foreground">Gender: {gender}</p>
           </div>
         </div>
         <StatusBadge status={status} />
       </div>
       
-      <div className="space-y-4">
+      {/* Academic Details */}
+      <div className="space-y-3 mt-4 border-t pt-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="text-sm text-muted-foreground">Faculty</p>
+            <p className="font-medium text-sm">{faculty}</p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">Department</p>
+            <p className="font-medium text-sm">{department}</p>
+          </div>
+        </div>
+        
+        {/* Course Units */}
+        <div className="mt-4">
+          <p className="text-sm text-muted-foreground mb-2">Enrolled Units</p>
+          <div className="bg-muted/50 p-3 rounded-lg">
+            <ul className="text-xs space-y-1">
+              {courseUnits.map((unit, index) => (
+                <li key={index}>{unit}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
         <div className="flex items-center gap-2">
           <Calendar className="w-4 h-4 text-muted-foreground" />
           <span className="text-sm">{examDate}</span>
