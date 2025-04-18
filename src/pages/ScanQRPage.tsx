@@ -1,44 +1,43 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { QrCode, Upload } from "lucide-react";
 import NavBar from "@/components/NavBar";
+import { StudentData } from "@/types/student";
 
 const ScanQRPage = () => {
-  const { user } = useAuth();
+  const navigate = useNavigate();
   const [scanning, setScanning] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-  const [studentInfo, setStudentInfo] = useState<null | {
-    name: string;
-    regNumber: string;
-    status: "VALID" | "EXPIRED" | "INVALID";
-  }>(null);
 
+  // Mock scan function - replace with actual QR scanning logic
   const handleScan = () => {
     setScanning(true);
     
-    // Mock QR code scanning - in real app, use a camera library
+    // Simulate QR code scanning with mock data
     setTimeout(() => {
-      // Simulate successful scan
       setScanning(false);
-      setResult("S123456-UNI/2023/001-VALID");
       
-      // Parse the data (in real app, this would come from the QR code)
-      setStudentInfo({
+      // Mock student data - replace with actual API call to Supabase
+      const mockStudentData: StudentData = {
+        id: "S123456",
         name: "John Doe",
         regNumber: "UNI/2023/001",
-        status: "VALID"
-      });
+        course: "Bachelor of Computer Science",
+        semester: "Fall 2023",
+        feesBalance: 500, // Example balance, 0 would mean fully paid
+        permitStatus: "VALID"
+      };
       
+      // Navigate to student details page with the scanned data
+      navigate("/student-details", { state: { studentData: mockStudentData } });
       toast.success("QR Code scanned successfully!");
     }, 2000);
   };
 
   const handleUploadImage = () => {
-    // Mock file upload logic
-    toast.info("File upload feature would be implemented here");
+    toast.info("File upload feature coming soon");
   };
 
   return (
@@ -55,11 +54,6 @@ const ScanQRPage = () => {
                 </div>
                 <p>Scanning...</p>
               </div>
-            ) : result ? (
-              <div className="text-center space-y-2">
-                <QrCode className="w-16 h-16 mx-auto text-primary" />
-                <p className="text-sm">Scan completed</p>
-              </div>
             ) : (
               <div className="text-center space-y-2">
                 <QrCode className="w-16 h-16 mx-auto text-muted-foreground" />
@@ -67,34 +61,6 @@ const ScanQRPage = () => {
               </div>
             )}
           </div>
-          
-          {studentInfo && (
-            <div className="bg-muted p-4 rounded-lg mb-6">
-              <h3 className="font-semibold text-lg mb-2">Scan Result</h3>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Name:</span>
-                  <span className="font-medium">{studentInfo.name}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Reg Number:</span>
-                  <span className="font-medium">{studentInfo.regNumber}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Status:</span>
-                  <span className={`font-medium ${
-                    studentInfo.status === "VALID"
-                      ? "text-green-500"
-                      : studentInfo.status === "EXPIRED"
-                      ? "text-amber-500"
-                      : "text-red-500"
-                  }`}>
-                    {studentInfo.status}
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
           
           <div className="flex flex-col space-y-3">
             <Button 
@@ -105,16 +71,14 @@ const ScanQRPage = () => {
               {scanning ? "Scanning..." : "Start Scanning"}
             </Button>
             
-            <div className="relative">
-              <Button 
-                variant="outline" 
-                onClick={handleUploadImage}
-                className="w-full"
-              >
-                <Upload className="w-4 h-4 mr-2" />
-                Upload QR Image
-              </Button>
-            </div>
+            <Button 
+              variant="outline" 
+              onClick={handleUploadImage}
+              className="w-full"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Upload QR Image
+            </Button>
           </div>
         </div>
       </div>

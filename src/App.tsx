@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +14,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 // Invigilator pages
 import ScanQRPage from "./pages/ScanQRPage";
 import ScanHistoryPage from "./pages/ScanHistoryPage";
+import StudentDetailsPage from "./pages/StudentDetailsPage";
 
 // Admin pages
 import ManageStudentsPage from "./pages/ManageStudentsPage";
@@ -74,6 +74,7 @@ const AppRoutes = () => {
       
       {/* Invigilator Routes */}
       <Route path="/scan" element={<ProtectedRoute requiredRoles={["invigilator"]}><ScanQRPage /></ProtectedRoute>} />
+      <Route path="/student-details" element={<ProtectedRoute requiredRoles={["invigilator"]}><StudentDetailsPage /></ProtectedRoute>} />
       <Route path="/scan-history" element={<ProtectedRoute requiredRoles={["invigilator"]}><ScanHistoryPage /></ProtectedRoute>} />
       
       {/* Admin Routes */}
