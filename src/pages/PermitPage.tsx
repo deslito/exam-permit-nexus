@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -17,15 +16,16 @@ const PermitPage = () => {
     id: "PERM-123456",
     studentName: user?.name || "John Doe",
     regNumber: user?.regNumber || "UNI/2023/001",
-    semester: user?.semester || "Fall 2023",
+    semester: "Spring 2025",
     courseName: "Advanced Mathematics",
-    examDate: "May 15, 2023",
+    examDate: "May 15, 2025",
     status: "valid" as const,
+    photoUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
   };
 
   // Mock fees balance - in real app this would come from Supabase
   const feesBalance = 500;
-  const isFullyPaid = feesBalance === 0;
+  const isFullyPaid = feesBalance <= 0;
 
   const handleDownload = () => {
     if (!isFullyPaid) {
@@ -162,4 +162,3 @@ const PermitPage = () => {
 };
 
 export default PermitPage;
-
