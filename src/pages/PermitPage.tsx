@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import NavBar from "@/components/NavBar";
 import PageHeader from "@/components/PageHeader";
 import PermitCard from "@/components/PermitCard";
-import { Download, Printer, Share2 } from "lucide-react";
+import { AlertCircle, Download, Printer, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
 const PermitPage = () => {
@@ -20,24 +20,36 @@ const PermitPage = () => {
     semester: user?.semester || "Fall 2023",
     courseName: "Advanced Mathematics",
     examDate: "May 15, 2023",
-    status: "valid" as const, // valid, pending, or expired
+    status: "valid" as const,
   };
 
+  // Mock fees balance - in real app this would come from Supabase
+  const feesBalance = 500;
+  const isFullyPaid = feesBalance === 0;
+
   const handleDownload = () => {
+    if (!isFullyPaid) {
+      toast.error("Cannot download permit. Please clear outstanding balance.");
+      return;
+    }
     toast.success("Permit downloaded successfully!");
-    // In a real app, we would generate a downloadable PDF
   };
 
   const handlePrint = () => {
+    if (!isFullyPaid) {
+      toast.error("Cannot print permit. Please clear outstanding balance.");
+      return;
+    }
     toast.success("Printing permit...");
-    // In a real app, we would open the print dialog
     window.print();
   };
 
   const handleShare = () => {
+    if (!isFullyPaid) {
+      toast.error("Cannot share permit. Please clear outstanding balance.");
+      return;
+    }
     setIsSharing(true);
-    
-    // In a real app, we would integrate with the device's sharing functionality
     setTimeout(() => {
       toast.success("Permit link copied to clipboard!");
       setIsSharing(false);
@@ -66,6 +78,18 @@ const PermitPage = () => {
           />
         </div>
 
+        {!isFullyPaid && (
+          <div className="mx-4 p-4 bg-destructive/10 rounded-lg">
+            <div className="flex items-center gap-2 text-destructive">
+              <AlertCircle className="w-5 h-5" />
+              <span className="font-medium">Outstanding Balance</span>
+            </div>
+            <p className="mt-2 text-sm">
+              You have an outstanding balance of ${feesBalance}. Please clear your fees to download the permit.
+            </p>
+          </div>
+        )}
+
         {/* Actions */}
         <div className="flex justify-center gap-3 mt-6">
           <Button
@@ -73,6 +97,7 @@ const PermitPage = () => {
             size="sm"
             className="flex-1 neuro-button"
             onClick={handleDownload}
+            disabled={!isFullyPaid}
           >
             <Download className="w-4 h-4 mr-1" /> Download
           </Button>
@@ -81,6 +106,7 @@ const PermitPage = () => {
             size="sm"
             className="flex-1 neuro-button"
             onClick={handlePrint}
+            disabled={!isFullyPaid}
           >
             <Printer className="w-4 h-4 mr-1" /> Print
           </Button>
@@ -89,7 +115,7 @@ const PermitPage = () => {
             size="sm"
             className="flex-1 neuro-button"
             onClick={handleShare}
-            disabled={isSharing}
+            disabled={isSharing || !isFullyPaid}
           >
             <Share2 className="w-4 h-4 mr-1" /> Share
           </Button>
@@ -130,9 +156,10 @@ const PermitPage = () => {
         </div>
       </div>
 
-      <NavBar userRole="student" />
+      <NavBar />
     </div>
   );
 };
 
 export default PermitPage;
+
