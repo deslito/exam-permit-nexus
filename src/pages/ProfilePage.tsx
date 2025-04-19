@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import { Edit2, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import AdminSidebar from "@/components/AdminSidebar";
+import { cn } from "@/lib/utils";
 
 const ProfilePage = () => {
   const { user, logout } = useAuth();

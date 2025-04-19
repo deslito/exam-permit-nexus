@@ -1,7 +1,6 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, CreditCard, User, History, LogOut, BarChart2, Users, Settings, ScanLine } from "lucide-react";
+import { Home, CreditCard, User, History, LogOut, Users, Settings, ScanLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -15,6 +14,10 @@ const NavBar = () => {
   const { user } = useAuth();
   const userRole = user?.role || "student";
   const location = useLocation();
+
+  if (userRole === "admin") {
+    return null;
+  }
 
   const getNavItems = (): NavItem[] => {
     switch (userRole) {
@@ -30,14 +33,6 @@ const NavBar = () => {
           { label: "Dashboard", icon: <Home className="w-5 h-5" />, href: "/" },
           { label: "Scan QR", icon: <ScanLine className="w-5 h-5" />, href: "/scan" },
           { label: "History", icon: <History className="w-5 h-5" />, href: "/scan-history" },
-          { label: "Profile", icon: <User className="w-5 h-5" />, href: "/profile" },
-        ];
-      case "admin":
-        return [
-          { label: "Dashboard", icon: <Home className="w-5 h-5" />, href: "/" },
-          { label: "Students", icon: <Users className="w-5 h-5" />, href: "/manage-students" },
-          { label: "Permits", icon: <CreditCard className="w-5 h-5" />, href: "/manage-permits" },
-          { label: "Settings", icon: <Settings className="w-5 h-5" />, href: "/settings" },
           { label: "Profile", icon: <User className="w-5 h-5" />, href: "/profile" },
         ];
       default:
