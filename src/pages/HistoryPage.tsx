@@ -6,59 +6,89 @@ import PageHeader from "@/components/PageHeader";
 import PermitCard from "@/components/PermitCard";
 import { PermitData } from "@/components/PermitCard";
 
+// Update PermitData to use the correct semester format
+type ExtendedPermitData = Omit<PermitData, 'semester'> & {
+  displaySemester: string;
+  semester: "I" | "II";
+};
+
 const HistoryPage = () => {
   const { user } = useAuth();
 
   // Mock permit history data
-  const permitHistory: PermitData[] = [
+  const permitHistory: ExtendedPermitData[] = [
     {
       id: "PERM-123456",
       studentName: user?.name || "John Doe",
       regNumber: user?.regNumber || "UNI/2023/001",
-      semester: "Fall 2023",
+      displaySemester: "Fall 2023",
+      semester: "I",
+      gender: "Male",
+      yearOfStudy: 3,
+      faculty: "Science",
+      department: "Computer Science",
       courseName: "Advanced Mathematics",
       examDate: "May 15, 2023",
       status: "valid",
+      courseUnits: ["CSC 301", "CSC 302"],
     },
     {
       id: "PERM-123455",
       studentName: user?.name || "John Doe",
       regNumber: user?.regNumber || "UNI/2023/001",
-      semester: "Fall 2023",
+      displaySemester: "Fall 2023",
+      semester: "I",
+      gender: "Male",
+      yearOfStudy: 3,
+      faculty: "Science",
+      department: "Computer Science",
       courseName: "Computer Science",
       examDate: "May 18, 2023",
       status: "valid",
+      courseUnits: ["CSC 303", "CSC 304"],
     },
     {
       id: "PERM-123454",
       studentName: user?.name || "John Doe",
       regNumber: user?.regNumber || "UNI/2023/001",
-      semester: "Spring 2023",
+      displaySemester: "Spring 2023",
+      semester: "II",
+      gender: "Male",
+      yearOfStudy: 2,
+      faculty: "Science",
+      department: "Computer Science",
       courseName: "Data Structures",
       examDate: "January 10, 2023",
       status: "expired",
+      courseUnits: ["CSC 201", "CSC 202"],
     },
     {
       id: "PERM-123453",
       studentName: user?.name || "John Doe",
       regNumber: user?.regNumber || "UNI/2023/001",
-      semester: "Spring 2023",
+      displaySemester: "Spring 2023",
+      semester: "II",
+      gender: "Male",
+      yearOfStudy: 2,
+      faculty: "Science",
+      department: "Computer Science",
       courseName: "Software Engineering",
       examDate: "January 15, 2023",
       status: "expired",
+      courseUnits: ["CSC 205", "CSC 206"],
     },
   ];
 
-  // Group permits by semester
-  const groupedPermits: Record<string, PermitData[]> = permitHistory.reduce(
+  // Group permits by display semester
+  const groupedPermits: Record<string, ExtendedPermitData[]> = permitHistory.reduce(
     (acc, permit) => {
-      if (!acc[permit.semester]) {
-        acc[permit.semester] = [];
+      if (!acc[permit.displaySemester]) {
+        acc[permit.displaySemester] = [];
       }
-      acc[permit.semester].push(permit);
+      acc[permit.displaySemester].push(permit);
       return acc;
     },
-    {} as Record<string, PermitData[]>
+    {} as Record<string, ExtendedPermitData[]>
   );
 
   // Sort semesters by most recent first
@@ -91,7 +121,7 @@ const HistoryPage = () => {
         )}
       </div>
 
-      <NavBar userRole="student" />
+      <NavBar />
     </div>
   );
 };

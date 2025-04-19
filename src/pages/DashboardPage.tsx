@@ -139,7 +139,7 @@ const DashboardPage = () => {
         </section>
       </div>
 
-      <NavBar userRole="student" />
+      <NavBar />
     </div>
   );
 };

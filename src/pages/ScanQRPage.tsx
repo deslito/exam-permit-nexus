@@ -93,7 +93,7 @@ const ScanQRPage = () => {
       </div>
 
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent side={isMobile ? "bottom" : "right"} className={isMobile ? "h-[85%]" : "w-[400px]"}>
+        <DrawerContent className={isMobile ? "h-[85%]" : ""}>
           <DrawerHeader>
             <DrawerTitle>Scan Results</DrawerTitle>
           </DrawerHeader>
