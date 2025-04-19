@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, CreditCard, User, History, LogOut, Users, Settings, ScanLine } from "lucide-react";
@@ -16,7 +17,7 @@ const NavBar = () => {
   const location = useLocation();
 
   if (userRole === "admin") {
-    return null;
+    return null;  // Don't render NavBar for admin users
   }
 
   const getNavItems = (): NavItem[] => {

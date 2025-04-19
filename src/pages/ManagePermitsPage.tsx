@@ -1,13 +1,12 @@
-
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import NavBar from "@/components/NavBar";
 import { Search, Filter, Plus, Calendar } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AdminSidebar from "@/components/AdminSidebar";
 
 const ManagePermitsPage = () => {
   const { user } = useAuth();
@@ -62,59 +61,62 @@ const ManagePermitsPage = () => {
   );
 
   return (
-    <div className="pb-16">
-      {/* Header */}
-      <div className="bg-university-primary text-white p-6 pt-8">
-        <h1 className="text-2xl font-bold">Manage Permits</h1>
-        <p className="opacity-90 font-medium">View and manage student examination permits</p>
-      </div>
-
-      {/* Main Content */}
-      <div className="p-4 space-y-6">
-        {/* Search and Filter */}
-        <div className="flex space-x-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search permits..."
-              className="pl-8"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+    <div className="min-h-screen bg-background">
+      <AdminSidebar />
+      <div className="md:pl-64">
+        {/* Header */}
+        <div className="p-4">
+          <div className="bg-university-primary text-white p-6 pt-8">
+            <h1 className="text-2xl font-bold">Manage Permits</h1>
+            <p className="opacity-90 font-medium">View and manage student examination permits</p>
           </div>
-          <Button variant="outline" size="icon">
-            <Filter className="h-4 w-4" />
-          </Button>
-          <Button size="icon">
-            <Plus className="h-4 w-4" />
-          </Button>
+
+          {/* Main Content */}
+          <div className="p-4 space-y-6">
+            {/* Search and Filter */}
+            <div className="flex space-x-2">
+              <div className="relative flex-1">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search permits..."
+                  className="pl-8"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              <Button variant="outline" size="icon">
+                <Filter className="h-4 w-4" />
+              </Button>
+              <Button size="icon">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Tabs */}
+            <Tabs defaultValue="all">
+              <TabsList className="grid grid-cols-4">
+                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="valid">Valid</TabsTrigger>
+                <TabsTrigger value="pending">Pending</TabsTrigger>
+                <TabsTrigger value="expired">Expired</TabsTrigger>
+              </TabsList>
+              <TabsContent value="all" className="mt-4">
+                <PermitsTable permits={filteredPermits} />
+              </TabsContent>
+              <TabsContent value="valid" className="mt-4">
+                <PermitsTable permits={filteredPermits.filter((p) => p.status === "valid")} />
+              </TabsContent>
+              <TabsContent value="pending" className="mt-4">
+                <PermitsTable permits={filteredPermits.filter((p) => p.status === "pending")} />
+              </TabsContent>
+              <TabsContent value="expired" className="mt-4">
+                <PermitsTable permits={filteredPermits.filter((p) => p.status === "expired")} />
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
-
-        {/* Tabs */}
-        <Tabs defaultValue="all">
-          <TabsList className="grid grid-cols-4">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="valid">Valid</TabsTrigger>
-            <TabsTrigger value="pending">Pending</TabsTrigger>
-            <TabsTrigger value="expired">Expired</TabsTrigger>
-          </TabsList>
-          <TabsContent value="all" className="mt-4">
-            <PermitsTable permits={filteredPermits} />
-          </TabsContent>
-          <TabsContent value="valid" className="mt-4">
-            <PermitsTable permits={filteredPermits.filter((p) => p.status === "valid")} />
-          </TabsContent>
-          <TabsContent value="pending" className="mt-4">
-            <PermitsTable permits={filteredPermits.filter((p) => p.status === "pending")} />
-          </TabsContent>
-          <TabsContent value="expired" className="mt-4">
-            <PermitsTable permits={filteredPermits.filter((p) => p.status === "expired")} />
-          </TabsContent>
-        </Tabs>
       </div>
-
-      <NavBar />
     </div>
   );
 };

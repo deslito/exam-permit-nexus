@@ -1,7 +1,5 @@
-
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import NavBar from "@/components/NavBar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -24,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import AdminSidebar from "@/components/AdminSidebar";
 
 // Mock student data
 const mockStudents = [
@@ -126,67 +125,70 @@ const ManageStudentsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-16">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Manage Users</h1>
-          <Button onClick={handleAddStudent} size="sm" className="flex items-center">
-            <Plus className="w-4 h-4 mr-1" /> Add User
-          </Button>
-        </div>
-        
-        <form onSubmit={handleSearch} className="mb-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
-              placeholder="Search by name or reg number"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+    <div className="min-h-screen bg-background">
+      <AdminSidebar />
+      <div className="md:pl-64">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold">Manage Users</h1>
+            <Button onClick={handleAddStudent} size="sm" className="flex items-center">
+              <Plus className="w-4 h-4 mr-1" /> Add User
+            </Button>
           </div>
-        </form>
-        
-        <div className="space-y-4">
-          {students.map((student) => (
-            <Card key={student.id} className="p-4 neuro-card">
-              <div className="flex justify-between">
-                <div>
-                  <div className="font-semibold">{student.name}</div>
-                  <div className="text-sm text-muted-foreground mb-1">{student.regNumber}</div>
-                  <div className="text-sm">{student.email}</div>
-                </div>
-                <div className="flex flex-col items-end justify-between">
-                  <Badge className={getStatusColor(student.permitStatus)}>
-                    {student.permitStatus}
-                  </Badge>
-                  <div className="flex space-x-2 mt-2">
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => handleEditStudent(student.id)}
-                    >
-                      <Edit className="w-4 h-4" />
-                    </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      onClick={() => handleDeleteStudent(student.id)}
-                      className="text-destructive"
-                    >
-                      <Trash className="w-4 h-4" />
-                    </Button>
+          
+          <form onSubmit={handleSearch} className="mb-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input
+                placeholder="Search by name or reg number"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </form>
+          
+          <div className="space-y-4">
+            {students.map((student) => (
+              <Card key={student.id} className="p-4 neuro-card">
+                <div className="flex justify-between">
+                  <div>
+                    <div className="font-semibold">{student.name}</div>
+                    <div className="text-sm text-muted-foreground mb-1">{student.regNumber}</div>
+                    <div className="text-sm">{student.email}</div>
+                  </div>
+                  <div className="flex flex-col items-end justify-between">
+                    <Badge className={getStatusColor(student.permitStatus)}>
+                      {student.permitStatus}
+                    </Badge>
+                    <div className="flex space-x-2 mt-2">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => handleEditStudent(student.id)}
+                      >
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleDeleteStudent(student.id)}
+                        className="text-destructive"
+                      >
+                        <Trash className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
+              </Card>
+            ))}
+            
+            {students.length === 0 && (
+              <div className="text-center py-8 text-muted-foreground">
+                No students found. Try a different search term.
               </div>
-            </Card>
-          ))}
-          
-          {students.length === 0 && (
-            <div className="text-center py-8 text-muted-foreground">
-              No students found. Try a different search term.
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
@@ -267,8 +269,6 @@ const ManageStudentsPage = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      
-      <NavBar />
     </div>
   );
 };
