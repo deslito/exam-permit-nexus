@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Calendar, Clock, User } from "lucide-react";
 import StatusBadge from "./StatusBadge";
@@ -11,8 +10,8 @@ export interface CourseUnit {
   code: string;
   name: string;
   creditUnits: number;
-  category: "core" | "effective";
-  status: "normal" | "retake";
+  category: "CORE" | "ELECTIVE";
+  status: "NORMAL" | "RETAKE";
 }
 
 export interface PermitData {
@@ -26,10 +25,13 @@ export interface PermitData {
   campus: string;
   semester: "I" | "II";
   academicYear: string;
+  faculty?: string;
+  department?: string;
   courseUnits: CourseUnit[];
   examDate: string;
   status: "valid" | "pending" | "expired";
   photoUrl?: string;
+  printDate?: string;
 }
 
 interface PermitCardProps {
@@ -114,6 +116,14 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
               <span className="text-muted-foreground">Academic Year:</span>
               <span className="ml-2">{permitData.academicYear}</span>
             </div>
+            <div>
+              <span className="text-muted-foreground">Faculty:</span>
+              <span className="ml-2">{permitData.faculty}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Department:</span>
+              <span className="ml-2">{permitData.department}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -142,7 +152,7 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
                   <td className="text-center py-2 capitalize">
                     <span className={cn(
                       "px-2 py-0.5 rounded-full text-xs",
-                      unit.status === "retake" ? "bg-university-orange/10 text-university-orange" : "bg-university-green/10 text-university-green"
+                      unit.status === "RETAKE" ? "bg-university-orange/10 text-university-orange" : "bg-university-green/10 text-university-green"
                     )}>
                       {unit.status}
                     </span>

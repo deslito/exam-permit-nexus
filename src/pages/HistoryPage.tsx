@@ -4,7 +4,7 @@ import NavBar from "@/components/NavBar";
 import PageHeader from "@/components/PageHeader";
 import PermitCard from "@/components/PermitCard";
 import { PermitData } from "@/components/PermitCard";
-import { CourseUnit } from "@/types/student";
+import { CourseUnit } from "@/components/PermitCard";
 
 type ExtendedPermitData = Omit<PermitData, 'semester'> & {
   displaySemester: string;
@@ -118,7 +118,6 @@ const HistoryPage = () => {
     },
   ];
 
-  // Group permits by display semester
   const groupedPermits: Record<string, ExtendedPermitData[]> = permitHistory.reduce(
     (acc, permit) => {
       if (!acc[permit.displaySemester]) {
@@ -130,7 +129,6 @@ const HistoryPage = () => {
     {} as Record<string, ExtendedPermitData[]>
   );
 
-  // Sort semesters by most recent first
   const sortedSemesters = Object.keys(groupedPermits).sort().reverse();
 
   return (
