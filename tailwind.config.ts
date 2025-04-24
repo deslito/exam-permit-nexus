@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -69,10 +68,10 @@ export default {
           expired: "#EF4444",
         },
         university: {
-          primary: "#0A3D62",
-          secondary: "#3498db",
-          accent: "#2ecc71",
-          light: "#f5f8fa",
+          blue: "#0066B3",
+          orange: "#FF9933",
+          green: "#99CC33",
+          gray: "#666666",
         },
       },
       borderRadius: {

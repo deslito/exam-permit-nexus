@@ -1,22 +1,32 @@
 
 import React from "react";
-import { Calendar, User } from "lucide-react";
+import { Calendar, Clock, User } from "lucide-react";
 import StatusBadge from "./StatusBadge";
 import QRCode from "./QRCode";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { format } from "date-fns";
+
+export interface CourseUnit {
+  code: string;
+  name: string;
+  creditUnits: number;
+  category: "core" | "effective";
+  status: "normal" | "retake";
+}
 
 export interface PermitData {
   id: string;
   studentName: string;
-  regNumber: string;
   gender: string;
+  studentNumber: string;
+  regNumber: string;
+  programme: string;
   yearOfStudy: number;
+  campus: string;
   semester: "I" | "II";
-  faculty: string;
-  department: string;
-  courseName: string;
-  courseUnits: string[];
+  academicYear: string;
+  courseUnits: CourseUnit[];
   examDate: string;
   status: "valid" | "pending" | "expired";
   photoUrl?: string;
@@ -29,21 +39,7 @@ interface PermitCardProps {
 }
 
 const PermitCard = ({ permitData, className, variant = "default" }: PermitCardProps) => {
-  const {
-    id,
-    studentName,
-    regNumber,
-    gender,
-    yearOfStudy,
-    semester,
-    faculty,
-    department,
-    courseName,
-    courseUnits,
-    examDate,
-    status,
-    photoUrl,
-  } = permitData;
+  const printDateTime = new Date();
 
   return (
     <div
@@ -56,75 +52,119 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
       {/* University Header */}
       <div className="text-center mb-6 border-b pb-4">
         <img
-          src="https://images.unsplash.com/photo-1518005020951-eccb494ad742"
-          alt="University Logo"
-          className="h-16 mx-auto mb-2 object-contain"
+          src="/lovable-uploads/e13b93b5-6bf4-4524-bd51-dfbb4efac2c0.png"
+          alt="Kyambogo University Logo"
+          className="h-20 mx-auto mb-2 object-contain"
         />
-        <h2 className="text-lg font-semibold text-university-primary">East Valley University</h2>
-        <p className="text-sm text-muted-foreground">Excellence in Education</p>
-        <p className="text-sm text-muted-foreground mt-1">Academic Year 2025</p>
+        <h2 className="text-lg font-semibold text-university-blue">Kyambogo University</h2>
+        <p className="text-sm text-university-green">Knowledge and Skills for Service</p>
+        <div className="flex justify-between text-xs text-muted-foreground mt-2">
+          <div className="flex items-center gap-1">
+            <Calendar className="w-3 h-3" />
+            <span>{format(printDateTime, "dd MMM yyyy")}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            <span>{format(printDateTime, "HH:mm:ss")}</span>
+          </div>
+        </div>
       </div>
 
-      {/* Student Info with Photo */}
-      <div className="flex items-start gap-4 mb-4">
-        <Avatar className="h-20 w-20 border-2 border-muted">
-          <AvatarImage src={photoUrl || "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"} />
+      {/* Student Bio Data */}
+      <div className="flex items-start gap-4 mb-6">
+        <Avatar className="h-24 w-24 border-2 border-muted">
+          <AvatarImage src={permitData.photoUrl} />
           <AvatarFallback><User className="h-8 w-8" /></AvatarFallback>
         </Avatar>
-        <div className="flex-1">
-          <h3 className="font-bold text-lg">{courseName}</h3>
-          <p className="text-sm text-muted-foreground">Semester {semester} - Year {yearOfStudy}</p>
-          <div className="mt-2">
-            <p className="font-medium">{studentName}</p>
-            <p className="text-xs text-muted-foreground">{regNumber}</p>
-            <p className="text-xs text-muted-foreground">Gender: {gender}</p>
+        <div className="flex-1 space-y-2">
+          <div className="flex justify-between">
+            <h3 className="font-bold text-lg">{permitData.studentName}</h3>
+            <StatusBadge status={permitData.status} />
+          </div>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+            <div>
+              <span className="text-muted-foreground">Gender:</span>
+              <span className="ml-2">{permitData.gender}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Student No:</span>
+              <span className="ml-2">{permitData.studentNumber}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Reg Number:</span>
+              <span className="ml-2">{permitData.regNumber}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Programme:</span>
+              <span className="ml-2">{permitData.programme}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Study Year:</span>
+              <span className="ml-2">{permitData.yearOfStudy}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Campus:</span>
+              <span className="ml-2">{permitData.campus}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Semester:</span>
+              <span className="ml-2">{permitData.semester}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">Academic Year:</span>
+              <span className="ml-2">{permitData.academicYear}</span>
+            </div>
           </div>
         </div>
-        <StatusBadge status={status} />
       </div>
-      
-      {/* Academic Details */}
-      <div className="space-y-3 mt-4 border-t pt-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="text-sm text-muted-foreground">Faculty</p>
-            <p className="font-medium text-sm">{faculty}</p>
-          </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Department</p>
-            <p className="font-medium text-sm">{department}</p>
-          </div>
-        </div>
-        
-        {/* Course Units */}
-        <div className="mt-4">
-          <p className="text-sm text-muted-foreground mb-2">Enrolled Units</p>
-          <div className="bg-muted/50 p-3 rounded-lg">
-            <ul className="text-xs space-y-1">
-              {courseUnits.map((unit, index) => (
-                <li key={index}>{unit}</li>
+
+      {/* Course Units Section */}
+      <div className="mt-6 border-t pt-4">
+        <h4 className="font-semibold mb-3">Registered Course Units</h4>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b text-muted-foreground">
+                <th className="text-left py-2">Code</th>
+                <th className="text-left py-2">Course Unit</th>
+                <th className="text-center py-2">CU</th>
+                <th className="text-center py-2">Category</th>
+                <th className="text-center py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {permitData.courseUnits.map((unit, index) => (
+                <tr key={index} className="border-b last:border-0">
+                  <td className="py-2">{unit.code}</td>
+                  <td className="py-2">{unit.name}</td>
+                  <td className="text-center py-2">{unit.creditUnits}</td>
+                  <td className="text-center py-2 capitalize">{unit.category}</td>
+                  <td className="text-center py-2 capitalize">
+                    <span className={cn(
+                      "px-2 py-0.5 rounded-full text-xs",
+                      unit.status === "retake" ? "bg-university-orange/10 text-university-orange" : "bg-university-green/10 text-university-green"
+                    )}>
+                      {unit.status}
+                    </span>
+                  </td>
+                </tr>
               ))}
-            </ul>
-          </div>
+            </tbody>
+          </table>
         </div>
-
-        <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm">{examDate}</span>
-        </div>
-
-        {variant === "default" && (
-          <div className="mt-4 flex justify-center py-2 border-t">
-            <QRCode value={id} size={120} />
-          </div>
-        )}
       </div>
 
-      {/* Additional University Details */}
-      <div className="mt-4 pt-4 border-t text-center text-xs text-muted-foreground">
-        <p>East Valley University - Department of Examinations</p>
-        <p>123 University Avenue, Academic District</p>
-        <p>Phone: (555) 123-4567 | Email: exams@eastvalley.edu</p>
+      {variant === "default" && (
+        <div className="mt-6 flex justify-center py-4 border-t">
+          <QRCode value={permitData.id} size={120} />
+        </div>
+      )}
+
+      {/* Footer */}
+      <div className="mt-6 pt-4 border-t text-center text-xs text-muted-foreground">
+        <p>Kyambogo University - Examination Department</p>
+        <p>P.O. Box 1, Kyambogo, Kampala, Uganda</p>
+        <p className="text-university-blue">Knowledge and Skills for Service</p>
       </div>
     </div>
   );
