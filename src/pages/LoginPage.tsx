@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
+import KyambogoLogo from "@/assets/kyambogo-logo.png"; // We'll need to add this image
 
 type UserRole = "student" | "invigilator" | "admin";
 
@@ -47,14 +48,17 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-university-primary/10 to-background">
       <div className="w-full max-w-md space-y-8">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-4">
           <div className="flex justify-center">
-            <div className="w-16 h-16 rounded-full bg-university-primary flex items-center justify-center">
-              <School className="w-8 h-8 text-white" />
-            </div>
+            <img 
+              src={KyambogoLogo} 
+              alt="Kyambogo University Logo" 
+              className="w-24 h-24 object-contain"
+            />
           </div>
-          <h1 className="text-2xl font-bold">Exam Permit System</h1>
-          <p className="text-muted-foreground">Sign in to access the system</p>
+          <h1 className="text-3xl font-bold text-university-primary">Kyambogo University</h1>
+          <p className="text-2xl font-semibold text-muted-foreground">Exam Permit System</p>
+          <p className="text-sm text-muted-foreground">Sign in to access the system</p>
         </div>
         
         <div className="neuro-card p-6 space-y-6">
