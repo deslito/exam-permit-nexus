@@ -16,17 +16,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 40% 15%;
 
-    --primary: 210 70% 25%;
+    --primary: 210 90% 35%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 195 83% 40%;
+    --secondary: 22 100% 58%;
     --secondary-foreground: 210 40% 98%;
+
+    --accent: 84 65% 50%;
+    --accent-foreground: 210 40% 98%;
 
     --muted: 210 30% 93%;
     --muted-foreground: 220 20% 45%;
-
-    --accent: 160 70% 45%;
-    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -36,6 +36,10 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.75rem;
+
+    --university-blue: #0066B3;
+    --university-orange: #FF9933;
+    --university-green: #99CC33;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -60,13 +64,13 @@
     --primary: 210 70% 35%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 195 83% 40%;
+    --secondary: 22 100% 58%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 220 30% 20%;
     --muted-foreground: 210 20% 70%;
 
-    --accent: 160 70% 45%;
+    --accent: 84 65% 50%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -114,6 +118,10 @@
 
   .status-badge-pending {
     @apply bg-permit-pending/10 text-permit-pending;
+  }
+
+  .status-badge-approved {
+    @apply bg-permit-valid/10 text-permit-valid;
   }
 
   .status-badge-expired {

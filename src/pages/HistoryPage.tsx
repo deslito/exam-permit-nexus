@@ -1,10 +1,10 @@
+
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import NavBar from "@/components/NavBar";
 import PageHeader from "@/components/PageHeader";
 import PermitCard from "@/components/PermitCard";
-import { PermitData } from "@/components/PermitCard";
-import { CourseUnit } from "@/components/PermitCard";
+import { PermitData, CourseUnit } from "@/components/PermitCard";
 
 type ExtendedPermitData = Omit<PermitData, 'semester'> & {
   displaySemester: string;
@@ -37,7 +37,7 @@ const HistoryPage = () => {
       studentName: user?.name || "John Doe",
       studentNumber: "2023/HD/1234",
       regNumber: user?.regNumber || "UNI/2023/001",
-      displaySemester: "Fall 2023",
+      displaySemester: "Year 2 Semester I",
       semester: "I",
       gender: "Male",
       yearOfStudy: 3,
@@ -58,7 +58,7 @@ const HistoryPage = () => {
       studentName: user?.name || "John Doe",
       studentNumber: "2023/HD/1235",
       regNumber: user?.regNumber || "UNI/2023/001",
-      displaySemester: "Fall 2023",
+      displaySemester: "Year 2 Semester I",
       semester: "I",
       gender: "Male",
       yearOfStudy: 3,
@@ -79,7 +79,7 @@ const HistoryPage = () => {
       studentName: user?.name || "John Doe",
       studentNumber: "2023/HD/1236",
       regNumber: user?.regNumber || "UNI/2023/001",
-      displaySemester: "Spring 2023",
+      displaySemester: "Year 1 Semester II",
       semester: "II",
       gender: "Male",
       yearOfStudy: 2,
@@ -100,7 +100,7 @@ const HistoryPage = () => {
       studentName: user?.name || "John Doe",
       studentNumber: "2023/HD/1237",
       regNumber: user?.regNumber || "UNI/2023/001",
-      displaySemester: "Spring 2023",
+      displaySemester: "Year 1 Semester II",
       semester: "II",
       gender: "Male",
       yearOfStudy: 2,

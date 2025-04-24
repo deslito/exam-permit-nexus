@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,6 @@ const PermitPage = () => {
     academicYear: "2023/2024",
     faculty: "Science and Technology",
     department: "Computer Science",
-    courseName: "Advanced Mathematics",
     courseUnits: [
       {
         code: "CSC 201",
@@ -157,12 +157,12 @@ const PermitPage = () => {
               <span className="font-medium">{permitData.examDate}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Course</span>
-              <span className="font-medium">{permitData.courseName}</span>
+              <span className="text-muted-foreground">Year of Study</span>
+              <span className="font-medium">Year {permitData.yearOfStudy}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Semester</span>
-              <span className="font-medium">{permitData.semester}</span>
+              <span className="font-medium">Semester {permitData.semester}</span>
             </div>
           </div>
         </div>

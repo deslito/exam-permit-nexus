@@ -30,10 +30,23 @@ export interface PermitData {
   academicYear: string;
   faculty: string;
   department: string;
-  courseName: string;
+  courseName?: string;
   courseUnits: CourseUnit[];
   examDate: string;
-  status: "valid" | "pending" | "expired";
+  status: "valid" | "pending" | "expired" | "approved";
   photoUrl: string;
   printDate?: string;
+  approvedBy?: string;
+  approvedAt?: string;
+}
+
+export interface Invigilation {
+  id: string;
+  permitId: string;
+  invigilatorId: string;
+  invigilatorName: string;
+  scanTime: string;
+  status: "approved" | "pending";
+  notes?: string;
+  isDuplicate: boolean;
 }

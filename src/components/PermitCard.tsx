@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Calendar, Clock, User } from "lucide-react";
 import StatusBadge from "./StatusBadge";
@@ -27,11 +28,14 @@ export interface PermitData {
   academicYear: string;
   faculty?: string;
   department?: string;
+  courseName?: string;
   courseUnits: CourseUnit[];
   examDate: string;
-  status: "valid" | "pending" | "expired";
+  status: "valid" | "pending" | "expired" | "approved";
   photoUrl?: string;
   printDate?: string;
+  approvedBy?: string;
+  approvedAt?: string;
 }
 
 interface PermitCardProps {
@@ -47,12 +51,21 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
     <div
       className={cn(
         "w-full",
-        variant === "default" ? "glass-card p-5" : "neuro-card p-4",
+        variant === "default" ? "glass-card p-5 relative" : "neuro-card p-4 relative",
         className
       )}
     >
+      {/* University Watermark */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none z-0">
+        <img
+          src="/lovable-uploads/e13b93b5-6bf4-4524-bd51-dfbb4efac2c0.png"
+          alt="Kyambogo University"
+          className="w-3/4 h-auto object-contain"
+        />
+      </div>
+
       {/* University Header */}
-      <div className="text-center mb-6 border-b pb-4">
+      <div className="text-center mb-6 border-b pb-4 relative z-10">
         <img
           src="/lovable-uploads/e13b93b5-6bf4-4524-bd51-dfbb4efac2c0.png"
           alt="Kyambogo University Logo"
@@ -73,7 +86,7 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
       </div>
 
       {/* Student Bio Data */}
-      <div className="flex items-start gap-4 mb-6">
+      <div className="flex items-start gap-4 mb-6 relative z-10">
         <Avatar className="h-24 w-24 border-2 border-muted">
           <AvatarImage src={permitData.photoUrl} />
           <AvatarFallback><User className="h-8 w-8" /></AvatarFallback>
@@ -129,7 +142,7 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
       </div>
 
       {/* Course Units Section */}
-      <div className="mt-6 border-t pt-4">
+      <div className="mt-6 border-t pt-4 relative z-10">
         <h4 className="font-semibold mb-3">Registered Course Units</h4>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -165,13 +178,36 @@ const PermitCard = ({ permitData, className, variant = "default" }: PermitCardPr
       </div>
 
       {variant === "default" && (
-        <div className="mt-6 flex justify-center py-4 border-t">
-          <QRCode value={permitData.id} size={120} />
+        <>
+          <div className="mt-6 flex justify-center py-4 border-t relative z-10">
+            <QRCode value={permitData.id} size={120} />
+          </div>
+          
+          {/* Instructions */}
+          <div className="mt-4 text-sm text-muted-foreground border-t pt-4 relative z-10">
+            <h5 className="font-medium mb-2 text-foreground">Instructions:</h5>
+            <ul className="space-y-1">
+              <li>• Present this permit along with your student ID to the invigilator</li>
+              <li>• Arrive at least 15 minutes before the exam</li>
+              <li>• Electronic devices are not allowed during the exam</li>
+              <li>• This QR code will be scanned for verification</li>
+              <li>• Any permit tampering is considered exam malpractice</li>
+            </ul>
+          </div>
+        </>
+      )}
+
+      {/* Approval Information */}
+      {permitData.approvedBy && permitData.approvedAt && permitData.status === "approved" && (
+        <div className="mt-4 p-3 bg-green-50 border border-green-100 rounded-md text-sm relative z-10">
+          <p className="font-medium text-green-700">
+            Approved by: {permitData.approvedBy} at {permitData.approvedAt}
+          </p>
         </div>
       )}
 
       {/* Footer */}
-      <div className="mt-6 pt-4 border-t text-center text-xs text-muted-foreground">
+      <div className="mt-6 pt-4 border-t text-center text-xs text-muted-foreground relative z-10">
         <p>Kyambogo University - Examination Department</p>
         <p>P.O. Box 1, Kyambogo, Kampala, Uganda</p>
         <p className="text-university-blue">Knowledge and Skills for Service</p>
