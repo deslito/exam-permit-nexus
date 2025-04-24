@@ -11,29 +11,42 @@ const PermitPage = () => {
   const { user } = useAuth();
   const [isSharing, setIsSharing] = useState(false);
   
-  // Mock permit data
   const permitData = {
     id: "PERM-123456",
     studentName: user?.name || "John Doe",
+    studentNumber: "2023/HD/1234",
     regNumber: user?.regNumber || "UNI/2023/001",
     gender: "Male",
+    programme: "Bachelor of Computer Science",
     yearOfStudy: 2,
+    campus: "Main Campus",
     semester: "I" as const,
+    academicYear: "2023/2024",
     faculty: "Science and Technology",
     department: "Computer Science",
     courseName: "Advanced Mathematics",
     courseUnits: [
-      "CSC 201 - Data Structures",
-      "CSC 203 - Database Systems",
-      "CSC 205 - Computer Networks",
-      "MTH 201 - Linear Algebra",
+      {
+        code: "CSC 201",
+        name: "Data Structures",
+        creditUnits: 4,
+        category: "CORE",
+        status: "NORMAL"
+      },
+      {
+        code: "CSC 203",
+        name: "Database Systems",
+        creditUnits: 3,
+        category: "CORE",
+        status: "NORMAL"
+      }
     ],
     examDate: "May 15, 2025",
     status: "valid" as const,
     photoUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+    printDate: new Date().toISOString()
   };
 
-  // Mock fees balance - in real app this would come from Supabase
   const feesBalance = 500;
   const isFullyPaid = feesBalance <= 0;
 

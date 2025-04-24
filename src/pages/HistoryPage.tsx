@@ -1,12 +1,11 @@
-
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import NavBar from "@/components/NavBar";
 import PageHeader from "@/components/PageHeader";
 import PermitCard from "@/components/PermitCard";
 import { PermitData } from "@/components/PermitCard";
+import { CourseUnit } from "@/types/student";
 
-// Update PermitData to use the correct semester format
 type ExtendedPermitData = Omit<PermitData, 'semester'> & {
   displaySemester: string;
   semester: "I" | "II";
@@ -15,11 +14,28 @@ type ExtendedPermitData = Omit<PermitData, 'semester'> & {
 const HistoryPage = () => {
   const { user } = useAuth();
 
-  // Mock permit history data
+  const mockCourseUnits: CourseUnit[] = [
+    {
+      code: "CSC 301",
+      name: "Advanced Programming",
+      creditUnits: 4,
+      category: "CORE",
+      status: "NORMAL"
+    },
+    {
+      code: "CSC 302",
+      name: "Database Systems",
+      creditUnits: 4,
+      category: "CORE",
+      status: "NORMAL"
+    }
+  ];
+
   const permitHistory: ExtendedPermitData[] = [
     {
       id: "PERM-123456",
       studentName: user?.name || "John Doe",
+      studentNumber: "2023/HD/1234",
       regNumber: user?.regNumber || "UNI/2023/001",
       displaySemester: "Fall 2023",
       semester: "I",
@@ -27,14 +43,20 @@ const HistoryPage = () => {
       yearOfStudy: 3,
       faculty: "Science",
       department: "Computer Science",
+      programme: "Bachelor of Computer Science",
+      campus: "Main Campus",
+      academicYear: "2023/2024",
       courseName: "Advanced Mathematics",
       examDate: "May 15, 2023",
       status: "valid",
-      courseUnits: ["CSC 301", "CSC 302"],
+      courseUnits: mockCourseUnits,
+      photoUrl: "https://example.com/photo.jpg",
+      printDate: new Date().toISOString()
     },
     {
       id: "PERM-123455",
       studentName: user?.name || "John Doe",
+      studentNumber: "2023/HD/1235",
       regNumber: user?.regNumber || "UNI/2023/001",
       displaySemester: "Fall 2023",
       semester: "I",
@@ -42,14 +64,20 @@ const HistoryPage = () => {
       yearOfStudy: 3,
       faculty: "Science",
       department: "Computer Science",
+      programme: "Bachelor of Computer Science",
+      campus: "Main Campus",
+      academicYear: "2023/2024",
       courseName: "Computer Science",
       examDate: "May 18, 2023",
       status: "valid",
-      courseUnits: ["CSC 303", "CSC 304"],
+      courseUnits: mockCourseUnits,
+      photoUrl: "https://example.com/photo.jpg",
+      printDate: new Date().toISOString()
     },
     {
       id: "PERM-123454",
       studentName: user?.name || "John Doe",
+      studentNumber: "2023/HD/1236",
       regNumber: user?.regNumber || "UNI/2023/001",
       displaySemester: "Spring 2023",
       semester: "II",
@@ -57,14 +85,20 @@ const HistoryPage = () => {
       yearOfStudy: 2,
       faculty: "Science",
       department: "Computer Science",
+      programme: "Bachelor of Computer Science",
+      campus: "Main Campus",
+      academicYear: "2022/2023",
       courseName: "Data Structures",
       examDate: "January 10, 2023",
       status: "expired",
-      courseUnits: ["CSC 201", "CSC 202"],
+      courseUnits: mockCourseUnits,
+      photoUrl: "https://example.com/photo.jpg",
+      printDate: new Date().toISOString()
     },
     {
       id: "PERM-123453",
       studentName: user?.name || "John Doe",
+      studentNumber: "2023/HD/1237",
       regNumber: user?.regNumber || "UNI/2023/001",
       displaySemester: "Spring 2023",
       semester: "II",
@@ -72,10 +106,15 @@ const HistoryPage = () => {
       yearOfStudy: 2,
       faculty: "Science",
       department: "Computer Science",
+      programme: "Bachelor of Computer Science",
+      campus: "Main Campus",
+      academicYear: "2022/2023",
       courseName: "Software Engineering",
       examDate: "January 15, 2023",
       status: "expired",
-      courseUnits: ["CSC 205", "CSC 206"],
+      courseUnits: mockCourseUnits,
+      photoUrl: "https://example.com/photo.jpg",
+      printDate: new Date().toISOString()
     },
   ];
 
