@@ -52,27 +52,17 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
-        permit: {
-          valid: "#10B981",
-          pending: "#F59E0B",
-          expired: "#EF4444",
-        },
         university: {
           blue: "#0066B3",
           orange: "#FF9933",
           green: "#99CC33",
           gray: "#666666",
         },
+        permit: {
+          valid: "#99CC33",
+          pending: "#FF9933",
+          expired: "#EF4444",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
