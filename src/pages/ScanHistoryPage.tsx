@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import NavBar from "@/components/NavBar";
@@ -15,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Updated mock scan data with correct student names
 const mockScans = [
   {
     id: "SC001",
@@ -32,22 +30,22 @@ const mockScans = [
     regNumber: "21/U/ARC/38005/PD",
     scanTime: "2023-06-01T10:22:00Z",
     course: "Physics 101",
-    permitStatus: "VALID",
-    action: "ALLOWED"
+    permitStatus: "EXPIRED",
+    action: "DENIED"
   },
   {
     id: "SC003",
-    studentName: "Mubiru Timothy",
-    regNumber: "21/U/ITD/3925/PD",
+    studentName: "Twijukye David",
+    regNumber: "21/U/BBA/3345/PD",
     scanTime: "2023-06-02T08:45:00Z",
     course: "Computer Science",
-    permitStatus: "VALID",
-    action: "ALLOWED"
+    permitStatus: "PENDING",
+    action: "DENIED"
   },
   {
     id: "SC004",
-    studentName: "Twijukye David",
-    regNumber: "21/U/BBA/3345/PD",
+    studentName: "Mubiru Timothy",
+    regNumber: "21/U/ITD/3925/PD",
     scanTime: "2023-06-02T13:10:00Z",
     course: "Business Administration",
     permitStatus: "VALID",
@@ -69,7 +67,6 @@ const ScanHistoryPage = () => {
   const filterScans = (search: string, actionFilter: string) => {
     let filtered = [...mockScans];
     
-    // Apply search filter
     if (search) {
       filtered = filtered.filter(scan => 
         scan.studentName.toLowerCase().includes(search.toLowerCase()) || 
@@ -77,7 +74,6 @@ const ScanHistoryPage = () => {
       );
     }
     
-    // Apply action filter
     if (actionFilter !== "all") {
       filtered = filtered.filter(scan => scan.action.toLowerCase() === actionFilter.toLowerCase());
     }
@@ -109,7 +105,6 @@ const ScanHistoryPage = () => {
       </div>
       
       <div className="p-4 space-y-6">
-        {/* Search and Filter */}
         <div className="flex items-center space-x-2">
           <div className="relative flex-1">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -134,7 +129,6 @@ const ScanHistoryPage = () => {
           </Select>
         </div>
         
-        {/* Scan List */}
         <div className="space-y-4">
           {scans.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
@@ -173,7 +167,6 @@ const ScanHistoryPage = () => {
           )}
         </div>
         
-        {/* Database Stats */}
         <div className="bg-muted rounded-lg p-4 mt-6">
           <h3 className="font-medium mb-2">Database Statistics</h3>
           <div className="grid grid-cols-2 gap-4">
