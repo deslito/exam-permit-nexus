@@ -7,7 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import PermitCard from "@/components/PermitCard";
 import { AlertCircle, Download, Printer, Share2 } from "lucide-react";
 import { toast } from "sonner";
-import  TracyImage  from "@/assets/tracy.png";
+import TracyImage from "@/assets/tracy.png";
 
 const PermitPage = () => {
   const { user } = useAuth();

@@ -34,7 +34,7 @@ export interface PermitData {
   courseUnits: CourseUnit[];
   examDate: string;
   status: "valid" | "pending" | "expired" | "approved";
-  photoUrl: string;
+  photoUrl?: string;
   printDate?: string;
   approvedBy?: string;
   approvedAt?: string;

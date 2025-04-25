@@ -2,11 +2,9 @@
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import NavBar from "@/components/NavBar";
 import { CheckCircle, Clock, CreditCard } from "lucide-react";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
 import DashboardStats from "@/components/DashboardStats";
 
 const DashboardPage = () => {
@@ -17,7 +15,11 @@ const DashboardPage = () => {
   const nextExamDate = "May 15, 2025";
   const paymentStatus = "Paid";
   const courseProgress = 75;
-  const currentSemester = `Year ${user?.yearOfStudy || 1} Semester ${user?.currentSemester || 'I'}`;
+  
+  // Default to Year 1 Semester I if user data is not available
+  const year = user?.year || 1;
+  const semester = user?.semester || 'I';
+  const currentSemester = `Year ${year} Semester ${semester}`;
 
   return (
     <div className="pb-16">

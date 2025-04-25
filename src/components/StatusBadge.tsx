@@ -3,7 +3,7 @@ import React from "react";
 import { Check, Clock, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type PermitStatus = "valid" | "pending" | "expired";
+type PermitStatus = "valid" | "pending" | "expired" | "approved";
 
 interface StatusBadgeProps {
   status: PermitStatus;
@@ -25,6 +25,12 @@ const StatusBadge = ({ status, className, showIcon = true }: StatusBadgeProps) =
           label: "PENDING",
           icon: <Clock className="w-3.5 h-3.5" />,
           className: "status-badge-pending",
+        };
+      case "approved":
+        return {
+          label: "APPROVED",
+          icon: <Check className="w-3.5 h-3.5" />,
+          className: "status-badge-approved",
         };
       case "expired":
         return {
