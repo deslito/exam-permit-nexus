@@ -41,6 +41,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        university: {
+          blue:    "#0057B7",  // Royal Blue (Primary)
+          orange:  "#F7941D",  // Bright Orange (Accent)
+          green:   "#D1D700",  // Lime Green (Secondary)
+          navy:    "#002060",  // Navy Blue (Neutral Dark)
+          gray:    "#4D4D4D",  // Dark Gray (Neutral Base)
+        
+          // aliases for semantic use
+          primary:    "#0057B7",
+          accent:     "#F7941D",
+          secondary:  "#D1D700",
+          neutralDark:"#002060",
+          neutralBase:"#4D4D4D",
+        },
         permit: {
           valid: "#99CC33",
           pending: "#FF9933",
