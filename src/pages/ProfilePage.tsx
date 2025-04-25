@@ -27,7 +27,7 @@ const ProfilePage = () => {
         <div className="p-4 space-y-6">
           {/* Profile Header */}
           <div className="flex flex-col items-center justify-center py-4">
-            <div className="w-24 h-24 rounded-full bg-university-primary text-white flex items-center justify-center text-3xl font-bold">
+            <div className="w-24 h-24 rounded-full bg-university-blue text-white flex items-center justify-center text-3xl font-bold">
               {user?.name.charAt(0)}
             </div>
             <h2 className="mt-4 text-xl font-semibold">{user?.name}</h2>

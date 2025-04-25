@@ -8,7 +8,7 @@ const ManageInvigilatorsPage = () => {
   const [invigilators, setInvigilators] = useState<Invigilator[]>([
     {
       id: "1",
-      name: "Dr. John Doe",
+      name: "Dr. Roy Desire",
       email: "john.doe@kyu.ac.ug",
       phoneNumber: "+256 700 123456",
       staffId: "STAFF001",

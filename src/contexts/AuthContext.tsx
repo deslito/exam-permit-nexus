@@ -4,11 +4,11 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 // Mock data for student information
 const mockStudent = {
   id: "S123456",
-  name: "John Doe",
-  regNumber: "UNI/2023/001",
+  name: "Asiimire Tracy",
+  regNumber: "23/U/DCE/04387/PD",
   email: "john.doe@university.edu",
   role: "student" as const,
-  semester: "Fall 2023",
+  semester: "Year 2 Semester II",
 };
 
 // Mock data for invigilator

@@ -34,8 +34,8 @@ const ScanQRPage = () => {
       // Mock student data - replace with actual API call to Supabase
       const mockStudentData: StudentData = {
         id: "S123456",
-        name: "John Doe",
-        regNumber: "UNI/2023/001",
+        name: "Asiimire Tracy",
+        regNumber: "23/U/DCE/04387/PD",
         course: "Bachelor of Computer Science",
         semester: "Year 2 Semester I",
         feesBalance: 0,

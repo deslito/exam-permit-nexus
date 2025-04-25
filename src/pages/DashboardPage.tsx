@@ -14,7 +14,7 @@ const DashboardPage = () => {
 
   // Mock data
   const permitStatus = "valid"; // valid | pending | expired
-  const nextExamDate = "May 15, 2023";
+  const nextExamDate = "May 15, 2025";
   const paymentStatus = "Paid";
   const courseProgress = 75;
   const currentSemester = `Year ${user?.yearOfStudy || 1} Semester ${user?.currentSemester || 'I'}`;
@@ -22,8 +22,8 @@ const DashboardPage = () => {
   return (
     <div className="pb-16">
       <DashboardStats
-        username={user?.name || "John Doe"}
-        regNumber={user?.regNumber || "UNI/2023/001"}
+        username={user?.name || "Asiimire Tracy"}
+        regNumber={user?.regNumber || "23/U/DCE/04387/PD"}
         semester={currentSemester}
         permitStatus={permitStatus}
         paymentStatus={paymentStatus}
@@ -51,7 +51,6 @@ const DashboardPage = () => {
             </Link>
           </div>
         </section>
-
         {/* Recent Activity */}
         <section>
           <div className="flex justify-between items-center mb-3">

@@ -17,8 +17,8 @@ const ManagePermitsPage = () => {
     {
       id: "P001",
       studentId: "S123",
-      studentName: "John Doe",
-      regNumber: "UNI/2023/001",
+      studentName: "Asiimire Tracy",
+      regNumber: "23/U/DCE/04387/PD",
       course: "Advanced Mathematics",
       status: "valid",
       expiryDate: "2023-06-15",
@@ -66,7 +66,7 @@ const ManagePermitsPage = () => {
       <div className="md:pl-64">
         {/* Header */}
         <div className="p-4">
-          <div className="bg-university-primary text-white p-6 pt-8">
+          <div className="bg-university-blue text-white p-6 pt-8">
             <h1 className="text-2xl font-bold">Manage Permits</h1>
             <p className="opacity-90 font-medium">View and manage student examination permits</p>
           </div>

@@ -286,7 +286,7 @@ const InvigilatorForm: React.FC<InvigilatorFormProps> = ({ formData, setFormData
         <Label htmlFor="name">Full Name</Label>
         <Input 
           id="name" 
-          placeholder="Dr. John Doe" 
+          placeholder="Dr. Roy Desire" 
           required 
           value={formData.name}
           onChange={handleChange}

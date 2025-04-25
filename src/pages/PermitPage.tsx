@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import PermitCard from "@/components/PermitCard";
 import { AlertCircle, Download, Printer, Share2 } from "lucide-react";
 import { toast } from "sonner";
+import  TracyImage  from "@/assets/tracy.png";
 
 const PermitPage = () => {
   const { user } = useAuth();
@@ -14,15 +15,15 @@ const PermitPage = () => {
   
   const permitData = {
     id: "PERM-123456",
-    studentName: user?.name || "John Doe",
-    studentNumber: "2023/HD/1234",
-    regNumber: user?.regNumber || "UNI/2023/001",
-    gender: "Male",
-    programme: "Bachelor of Computer Science",
-    yearOfStudy: 2,
+    studentName: user?.name || "Asiimire Tracy",
+    studentNumber: "2300804387",
+    regNumber: user?.regNumber || "23/U/DCE/04387/PD",
+    gender: "FEMALE",
+    programme: "(DCE) DIPLOMA IN COMPUTER ENGINEERING",
+    yearOfStudy: 3,
     campus: "Main Campus",
     semester: "I" as const,
-    academicYear: "2023/2024",
+    academicYear: "2024/2025",
     faculty: "Science and Technology",
     department: "Computer Science",
     courseUnits: [
@@ -30,24 +31,24 @@ const PermitPage = () => {
         code: "CSC 201",
         name: "Data Structures",
         creditUnits: 4,
-        category: "CORE",
-        status: "NORMAL"
+        category: "CORE" as const,
+        status: "NORMAL" as const
       },
       {
         code: "CSC 203",
         name: "Database Systems",
         creditUnits: 3,
-        category: "CORE",
-        status: "NORMAL"
+        category: "CORE" as const,
+        status: "NORMAL" as const
       }
     ],
     examDate: "May 15, 2025",
     status: "valid" as const,
-    photoUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+    photoUrl: TracyImage,
     printDate: new Date().toISOString()
   };
 
-  const feesBalance = 500;
+  const feesBalance = 500000;
   const isFullyPaid = feesBalance <= 0;
 
   const handleDownload = () => {
@@ -85,11 +86,11 @@ const PermitPage = () => {
 
       <div className="p-4 space-y-6">
         <div className="mb-6">
-          <h2 className="text-center text-lg font-semibold text-university-primary">
+          <h2 className="text-center text-lg font-semibold text-university-blue">
             Your Examination Permit
           </h2>
           <p className="text-center text-sm text-muted-foreground">
-            Present this permit to the invigilator before the exam
+            Print this permit and present to the invigilator before the exam
           </p>
         </div>
 
@@ -97,7 +98,7 @@ const PermitPage = () => {
         <div className="flex justify-center">
           <PermitCard
             permitData={permitData}
-            className="max-w-md shadow-lg animate-fade-in"
+            className="w-full max-w-3xl shadow-lg animate-fade-in"
           />
         </div>
 
@@ -108,7 +109,7 @@ const PermitPage = () => {
               <span className="font-medium">Outstanding Balance</span>
             </div>
             <p className="mt-2 text-sm">
-              You have an outstanding balance of ${feesBalance}. Please clear your fees to download the permit.
+              You have an outstanding balance of UGX {feesBalance.toLocaleString()}. Please clear your fees to download the permit.
             </p>
           </div>
         )}

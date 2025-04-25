@@ -1,18 +1,8 @@
-# Welcome to your Lovable project
+**Title**
+Smart-Exam-Permit-Management-System
 
-## Project info
-
-**URL**: https://lovable.dev/projects/a48338ad-4c39-4350-a21e-cca68c10d90e
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/a48338ad-4c39-4350-a21e-cca68c10d90e) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
+**Description**
+A streamlined system designed for universities and colleges to automate the management and verification of examination permits. This project ensures students can securely access their permits, exam supervisors can verify eligibility in real-time, and administrators can manage permit approvals efficiently.
 
 **Use your preferred IDE**
 
@@ -20,7 +10,8 @@ If you want to work locally using your own IDE, you can clone this repo and push
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Follow these steps:
+**Follow these steps:**
+in case of a zipped file go stright to step 4
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
@@ -59,15 +50,3 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/a48338ad-4c39-4350-a21e-cca68c10d90e) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

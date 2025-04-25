@@ -80,7 +80,7 @@ const AdminSidebar = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="fixed top-4 left-4 z-40 flex items-center gap-2"
+            className="fixed w-24 top-4 left-4 z-40 flex items-center gap-2"
           >
             <Menu className="h-5 w-5" />
             <span className="text-sm font-medium">Menu</span>

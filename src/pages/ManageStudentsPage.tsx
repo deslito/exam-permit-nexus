@@ -28,8 +28,8 @@ import AdminSidebar from "@/components/AdminSidebar";
 const mockStudents = [
   {
     id: "S123456",
-    name: "John Doe",
-    regNumber: "UNI/2023/001",
+    name: "Asiimire Tracy",
+    regNumber: "23/U/DCE/04387/PD",
     email: "john.doe@university.edu",
     permitStatus: "VALID",
   },
@@ -208,7 +208,7 @@ const ManageStudentsPage = () => {
                 id="name"
                 value={newUser.name}
                 onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-                placeholder="John Doe"
+                placeholder="Asiimire Tracy"
               />
             </div>
             

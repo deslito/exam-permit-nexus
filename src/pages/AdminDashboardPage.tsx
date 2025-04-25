@@ -14,34 +14,34 @@ const AdminDashboardPage = () => {
   const stats = {
     totalStudents: 2458,
     pendingPermits: 125,
-    validPermits: 1875,
+    validPermits: 2000,
     expiredPermits: 458,
-    verifiedToday: 87,
+    verifiedToday: 200,
   };
 
   const recentActivities = [
     {
       id: 1,
       action: "Permit Generated",
-      student: "John Doe",
+      student: "Asiimire Tracy",
       timestamp: "10 minutes ago",
     },
     {
       id: 2,
       action: "Payment Verified",
-      student: "Jane Smith",
+      student: "John Asiimwe",
       timestamp: "25 minutes ago",
     },
     {
       id: 3,
       action: "Permit Expired",
-      student: "Robert Johnson",
+      student: "Robert Kagaba",
       timestamp: "1 hour ago",
     },
     {
       id: 4,
       action: "Student Added",
-      student: "Mary Williams",
+      student: "Patrick Kanyes",
       timestamp: "3 hours ago",
     },
   ];
@@ -53,12 +53,12 @@ const AdminDashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       <AdminSidebar />
       <div className="md:pl-64">
         <div className="p-4">
           {/* Header */}
-          <div className="bg-university-primary text-white p-6 pt-8 rounded-b-3xl">
+          <div className="bg-university-blue text-white p-6 pt-16 rounded-b-3xl">
             <h1 className="text-2xl font-bold">Admin Dashboard</h1>
             <p className="opacity-90 font-medium">{user?.name}</p>
             <div className="text-xs opacity-75 mt-1">Role: Administrator</div>
@@ -71,7 +71,7 @@ const AdminDashboardPage = () => {
                 <StatCard
                   title="Total Students"
                   value={stats.totalStudents.toString()}
-                  icon={<Users className="w-8 h-8 text-university-primary" />}
+                  icon={<Users className="w-8 h-8 text-university-blue" />}
                 />
                 <StatCard
                   title="Pending Permits"
@@ -116,13 +116,13 @@ const AdminDashboardPage = () => {
               <div className="grid grid-cols-2 gap-3">
                 <Link to="/manage-students" className="block">
                   <div className="neuro-card p-4 text-center h-24 flex flex-col items-center justify-center neuro-button">
-                    <Users className="w-6 h-6 text-university-primary" />
+                    <Users className="w-6 h-6 text-university-blue" />
                     <span className="mt-2 font-medium text-sm">Manage Students</span>
                   </div>
                 </Link>
                 <Link to="/manage-permits" className="block">
                   <div className="neuro-card p-4 text-center h-24 flex flex-col items-center justify-center neuro-button">
-                    <CreditCard className="w-6 h-6 text-university-primary" />
+                    <CreditCard className="w-6 h-6 text-university-blue" />
                     <span className="mt-2 font-medium text-sm">Manage Permits</span>
                   </div>
                 </Link>
@@ -133,7 +133,7 @@ const AdminDashboardPage = () => {
             <section>
               <div className="flex justify-between items-center mb-3">
                 <h2 className="text-lg font-semibold">Recent Activity</h2>
-                <Link to="/activity" className="text-sm text-university-primary font-medium">
+                <Link to="/activity" className="text-sm text-university-blue font-medium">
                   View All
                 </Link>
               </div>
@@ -161,7 +161,7 @@ const AdminDashboardPage = () => {
               <Card>
                 <CardContent className="p-4 flex items-center justify-between">
                   <div className="flex items-center">
-                    <Calendar className="w-10 h-10 p-2 rounded-lg bg-muted text-university-primary" />
+                    <Calendar className="w-10 h-10 p-2 rounded-lg bg-muted text-university-blue" />
                     <div className="ml-4">
                       <h3 className="font-medium">{stats.verifiedToday} Permits Verified</h3>
                       <p className="text-sm text-muted-foreground">Today</p>

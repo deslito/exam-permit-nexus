@@ -19,8 +19,8 @@ import {
 const mockScans = [
   {
     id: "SC001",
-    studentName: "John Doe",
-    regNumber: "UNI/2023/001",
+    studentName: "Asiimire Tracy",
+    regNumber: "23/U/DCE/04387/PD",
     scanTime: "2023-06-01T09:15:00Z",
     course: "Advanced Mathematics",
     permitStatus: "VALID",
@@ -103,7 +103,7 @@ const ScanHistoryPage = () => {
 
   return (
     <div className="min-h-screen bg-background pb-16">
-      <div className="bg-university-primary text-white p-6 pt-8">
+      <div className="bg-university-blue text-white p-6 pt-8">
         <h1 className="text-2xl font-bold">Scan History</h1>
         <p className="opacity-90 font-medium">View all permit scan records</p>
       </div>
