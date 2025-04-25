@@ -16,7 +16,7 @@ const DashboardPage = () => {
   const courseProgress = 75;
 
   // Default to Year 1 Semester I if user data is not available
-  const yearOfStudy = user?.year || 1;
+  const yearOfStudy = user?.yearOfStudy || 1;
   const semester = user?.semester || 'I';
   const currentSemester = `Year ${yearOfStudy} Semester ${semester}`;
 
