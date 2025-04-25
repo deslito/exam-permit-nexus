@@ -75,21 +75,22 @@ const AdminSidebar = () => {
 
   if (isMobile) {
     return (
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <>
         <SheetTrigger asChild>
           <Button
             variant="ghost"
             size="icon"
-            className="fixed w-24 top-4 left-4 z-40 flex items-center gap-2"
+            className="fixed top-4 left-4 z-40 w-10 h-10 flex items-center justify-center neuro-card glass-card hover:bg-opacity-80 transition-all"
           >
             <Menu className="h-5 w-5" />
-            <span className="text-sm font-medium">Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-64">
-          <NavContent />
-        </SheetContent>
-      </Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetContent side="left" className="w-64">
+            <NavContent />
+          </SheetContent>
+        </Sheet>
+      </>
     );
   }
 

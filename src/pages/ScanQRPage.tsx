@@ -47,7 +47,8 @@ const ScanQRPage = () => {
       programme: "Day",
       semester: "Year 2 Semester I",
       feesBalance: 0, // Cleared fees
-      permitStatus: "VALID"
+      permitStatus: "VALID",
+      photoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
     },
     david: {
       id: "S345678",
@@ -58,7 +59,8 @@ const ScanQRPage = () => {
       programme: "Evening",
       semester: "Year 2 Semester I",
       feesBalance: 0, // Cleared fees
-      permitStatus: "VALID"
+      permitStatus: "VALID",
+      photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
     },
     cynthia: {
       id: "S456789",
@@ -69,7 +71,8 @@ const ScanQRPage = () => {
       programme: "Day",
       semester: "Year 2 Semester I",
       feesBalance: 0, // Cleared fees
-      permitStatus: "VALID"
+      permitStatus: "VALID",
+      photoUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
     }
   };
 
@@ -115,8 +118,7 @@ const ScanQRPage = () => {
       navigate("/student-details", { 
         state: { 
           studentData: {
-            ...studentData,
-            permitStatus: studentData.feesBalance === 0 ? "VALID" : "INVALID"
+            ...studentData
           } 
         }
       });

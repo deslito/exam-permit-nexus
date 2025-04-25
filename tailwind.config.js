@@ -1,11 +1,22 @@
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
+  darkMode: ["class"],
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
+  prefix: "",
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -41,25 +52,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        university: {
-          blue:    "#0057B7",  // Royal Blue (Primary)
-          orange:  "#F7941D",  // Bright Orange (Accent)
-          green:   "#D1D700",  // Lime Green (Secondary)
-          navy:    "#002060",  // Navy Blue (Neutral Dark)
-          gray:    "#4D4D4D",  // Dark Gray (Neutral Base)
-        
-          // aliases for semantic use
-          primary:    "#0057B7",
-          accent:     "#F7941D",
-          secondary:  "#D1D700",
-          neutralDark:"#002060",
-          neutralBase:"#4D4D4D",
-        },
-        permit: {
-          valid: "#99CC33",
-          pending: "#FF9933",
-          expired: "#EF4444",
-        }
+        "university-blue": "var(--university-blue)",
+        "university-orange": "var(--university-orange)",
+        "university-green": "var(--university-green)",
+        "university-gray": "#8E9196",
+        "university-neutralBase": "#F3F5F7",
+        "permit-valid": "#10b981",
+        "permit-pending": "#f59e0b",
+        "permit-expired": "#ef4444",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -69,9 +69,23 @@ export default {
       boxShadow: {
         neuro: "5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff",
         "neuro-inset": "inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff",
-        glass: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+        glass: "0 4px 30px rgba(0, 0, 0, 0.1)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

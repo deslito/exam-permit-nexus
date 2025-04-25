@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Input } from "@/components/ui/input";
@@ -24,29 +25,36 @@ import {
 import { Label } from "@/components/ui/label";
 import AdminSidebar from "@/components/AdminSidebar";
 
-// Mock student data
+// Updated mock student data
 const mockStudents = [
   {
     id: "S123456",
     name: "Asiimire Tracy",
     regNumber: "23/U/DCE/04387/PD",
-    email: "john.doe@university.edu",
-    permitStatus: "VALID",
+    email: "asiimiretracy@gmail.com",
+    permitStatus: "INVALID"
   },
   {
     id: "S234567",
-    name: "Jane Smith",
-    regNumber: "UNI/2023/002",
-    email: "jane.smith@university.edu",
-    permitStatus: "PENDING",
+    name: "Muyingo Cynthia",
+    regNumber: "21/U/ARC/38005/PD",
+    email: "muyingocynthia@gmail.com",
+    permitStatus: "VALID"
   },
   {
     id: "S345678",
-    name: "Bob Johnson",
-    regNumber: "UNI/2023/003",
-    email: "bob.johnson@university.edu",
-    permitStatus: "EXPIRED",
+    name: "Mubiru Timothy",
+    regNumber: "21/U/ITD/3925/PD",
+    email: "mubirutimothy@gmail.com",
+    permitStatus: "VALID"
   },
+  {
+    id: "S456789",
+    name: "Twijukye David",
+    regNumber: "21/U/BBA/3345/PD",
+    email: "twijukyedavid@gmail.com",
+    permitStatus: "VALID"
+  }
 ];
 
 const ManageStudentsPage = () => {
@@ -54,6 +62,8 @@ const ManageStudentsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [students, setStudents] = useState(mockStudents);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [currentStudent, setCurrentStudent] = useState<any>(null);
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",
@@ -81,7 +91,18 @@ const ManageStudentsPage = () => {
   };
 
   const handleEditStudent = (id: string) => {
-    toast.info(`Edit student ${id} modal would open here`);
+    const student = mockStudents.find(student => student.id === id);
+    if (student) {
+      setCurrentStudent(student);
+      setNewUser({
+        name: student.name,
+        email: student.email,
+        regNumber: student.regNumber,
+        role: "student",
+        password: "", // Don't prefill password for security
+      });
+      setIsEditDialogOpen(true);
+    }
   };
 
   const handleDeleteStudent = (id: string) => {
@@ -114,12 +135,40 @@ const ManageStudentsPage = () => {
     setIsAddDialogOpen(false);
   };
   
+  const handleUpdateAccount = () => {
+    // Validation
+    if (!newUser.name || !newUser.email) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+    
+    if (newUser.role === "student" && !newUser.regNumber) {
+      toast.error("Registration number is required for students");
+      return;
+    }
+    
+    // Mock account update
+    toast.success(`Account updated for ${newUser.name}`);
+    
+    // Reset form and close dialog
+    setNewUser({
+      name: "",
+      email: "",
+      regNumber: "",
+      role: "student",
+      password: "",
+    });
+    setIsEditDialogOpen(false);
+    setCurrentStudent(null);
+  };
+  
   // Get color for permit status badge
   const getStatusColor = (status: string) => {
     switch (status) {
       case "VALID": return "bg-green-500";
       case "PENDING": return "bg-amber-500";
       case "EXPIRED": return "bg-destructive";
+      case "INVALID": return "bg-destructive";
       default: return "bg-gray-500";
     }
   };
@@ -127,12 +176,12 @@ const ManageStudentsPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <AdminSidebar />
-      <div className="md:pl-64">
+      <div className="md:pl-64 pt-16 md:pt-0">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Manage Users</h1>
+            <h1 className="text-2xl font-bold">Manage Students</h1>
             <Button onClick={handleAddStudent} size="sm" className="flex items-center">
-              <Plus className="w-4 h-4 mr-1" /> Add User
+              <Plus className="w-4 h-4 mr-1" /> Add Student
             </Button>
           </div>
           
@@ -192,13 +241,13 @@ const ManageStudentsPage = () => {
         </div>
       </div>
 
-      {/* Add User Dialog */}
+      {/* Add Student Dialog */}
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create New Account</DialogTitle>
+            <DialogTitle>Create New Student Account</DialogTitle>
             <DialogDescription>
-              Create a new user account with a specific role.
+              Create a new student account with login credentials.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -219,38 +268,19 @@ const ManageStudentsPage = () => {
                 type="email"
                 value={newUser.email}
                 onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                placeholder="john.doe@university.edu"
+                placeholder="student@kyu.edu"
               />
             </div>
             
             <div className="grid gap-2">
-              <Label htmlFor="role">Role</Label>
-              <Select 
-                value={newUser.role}
-                onValueChange={(value) => setNewUser({ ...newUser, role: value })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="student">Student</SelectItem>
-                  <SelectItem value="invigilator">Invigilator</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="regNumber">Registration Number</Label>
+              <Input
+                id="regNumber"
+                value={newUser.regNumber}
+                onChange={(e) => setNewUser({ ...newUser, regNumber: e.target.value })}
+                placeholder="XX/U/XXX/XXXXX/XX"
+              />
             </div>
-            
-            {newUser.role === "student" && (
-              <div className="grid gap-2">
-                <Label htmlFor="regNumber">Registration Number</Label>
-                <Input
-                  id="regNumber"
-                  value={newUser.regNumber}
-                  onChange={(e) => setNewUser({ ...newUser, regNumber: e.target.value })}
-                  placeholder="UNI/20XX/XXX"
-                />
-              </div>
-            )}
             
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
@@ -266,6 +296,65 @@ const ManageStudentsPage = () => {
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>Cancel</Button>
             <Button onClick={handleCreateAccount}>Create Account</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Student Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Edit Student Account</DialogTitle>
+            <DialogDescription>
+              Update the student's account information.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="edit-name">Full Name</Label>
+              <Input
+                id="edit-name"
+                value={newUser.name}
+                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+              />
+            </div>
+            
+            <div className="grid gap-2">
+              <Label htmlFor="edit-email">Email</Label>
+              <Input
+                id="edit-email"
+                type="email"
+                value={newUser.email}
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+              />
+            </div>
+            
+            <div className="grid gap-2">
+              <Label htmlFor="edit-regNumber">Registration Number</Label>
+              <Input
+                id="edit-regNumber"
+                value={newUser.regNumber}
+                onChange={(e) => setNewUser({ ...newUser, regNumber: e.target.value })}
+              />
+            </div>
+            
+            <div className="grid gap-2">
+              <Label htmlFor="edit-password">Change Password</Label>
+              <Input
+                id="edit-password"
+                type="password"
+                value={newUser.password}
+                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                placeholder="Leave blank to keep current password"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => {
+              setIsEditDialogOpen(false);
+              setCurrentStudent(null);
+            }}>Cancel</Button>
+            <Button onClick={handleUpdateAccount}>Update Account</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

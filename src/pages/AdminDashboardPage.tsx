@@ -2,7 +2,7 @@
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent } from "@/components/ui/card";
-import { BarChart2, CreditCard, Users, Calendar, AlertCircle } from "lucide-react";
+import { BarChart2, CreditCard, Users, Calendar, AlertCircle, User } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
@@ -56,10 +56,10 @@ const AdminDashboardPage = () => {
   return (
     <div className="min-h-screen bg-transparent">
       <AdminSidebar />
-      <div className="md:pl-64">
+      <div className="md:pl-64 pt-16 md:pt-0">
         <div className="p-4">
           {/* Header */}
-          <div className="bg-university-blue text-white p-6 pt-16 rounded-b-3xl">
+          <div className="bg-university-blue text-white p-6 pt-8 md:pt-16 rounded-b-3xl">
             <h1 className="text-2xl font-bold">Admin Dashboard</h1>
             <p className="opacity-90 font-medium">{user?.name}</p>
             <div className="text-xs opacity-75 mt-1">Role: Administrator</div>
@@ -117,7 +117,7 @@ const AdminDashboardPage = () => {
               <div className="grid grid-cols-2 gap-3">
                 <Link to="/manage-invigilators" className="block">
                   <div className="neuro-card p-4 text-center h-24 flex flex-col items-center justify-center neuro-button">
-                    <Users className="w-6 h-6 text-university-blue" />
+                    <User className="w-6 h-6 text-university-blue" />
                     <span className="mt-2 font-medium text-sm">Manage Invigilators</span>
                   </div>
                 </Link>

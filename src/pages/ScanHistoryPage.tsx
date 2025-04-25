@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Updated mock scan data with new student names
+// Updated mock scan data with correct student names
 const mockScans = [
   {
     id: "SC001",
