@@ -48,7 +48,7 @@ const mockScans = [
     regNumber: "21/U/ITD/3925/PD",
     scanTime: "2023-06-02T13:10:00Z",
     course: "Business Administration",
-    permitStatus: "VALID",
+    permitStatus: "APPROVED",
     action: "ALLOWED"
   }
 ];
