@@ -90,5 +90,5 @@ Muyingo Cynthia
 -password:cynthia
 
 Twijukye David
--email:
+-email: twijukyedavid@gmail.com
 -password:david
