@@ -50,3 +50,45 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+
+## Login Credentials
+
+Login Credentials
+
+admin
+-email: admin@kyu.edu
+-password: admin
+
+invigilators
+-Dr. Mugisha Joel
+-Ms. Nakirayi Sophia
+
+Dr. Mugisha Joel
+-email: mugishajoel@kyu.edu
+-password: joel
+
+Ms. Nakirayi Sophia
+-email: nakirayisophia@kyu.edu
+-password: sophia
+
+Students
+-Asiimire Tracy
+-Mubiru Timothy
+-Muyingo Cynthia
+-Twijukye David
+
+Asiimire Tracy
+-email: asiimiretracy@gmail.com
+-password:tracy
+
+Mubiru Timothy
+-email: mubirutimothy@gmail.com
+-password:timothy
+
+Muyingo Cynthia
+-email: muyingocynthia@gmail.com
+-password:cynthia
+
+Twijukye David
+-email:
+-password:david
