@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Input } from "@/components/ui/input";
@@ -285,3 +286,5 @@ const ManageInvigilatorsPage = () => {
     </div>
   );
 };
+
+export default ManageInvigilatorsPage;

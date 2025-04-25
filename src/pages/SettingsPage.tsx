@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -92,3 +93,6 @@ const SettingsPage = () => {
       </div>
     </div>
   );
+};
+
+export default SettingsPage;
