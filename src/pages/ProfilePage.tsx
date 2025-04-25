@@ -74,10 +74,13 @@ const ProfilePage = () => {
   return (
     <div className="flex min-h-screen pb-16">
       {isAdmin && <AdminSidebar />}
-      <div className={cn(isAdmin ? "md:ml-64 pt-16 md:pt-6" : "")}>
+      <div className={cn(
+        "w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8", 
+        isAdmin ? "md:ml-64 pt-16 md:pt-6" : ""
+      )}>
         <PageHeader title="Profile" />
 
-        <div className="p-4 space-y-6">
+        <div className="space-y-6 mt-6">
           {/* Profile Header */}
           <div className="flex flex-col items-center justify-center py-4">
             <div className="w-24 h-24 rounded-full bg-university-blue text-white flex items-center justify-center text-3xl font-bold">
@@ -254,3 +257,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
