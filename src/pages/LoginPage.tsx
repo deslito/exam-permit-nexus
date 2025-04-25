@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -25,7 +26,8 @@ const LoginPage: React.FC = () => {
 
     try {
       setIsLoggingIn(true);
-      await login(email, password, role);
+      // Fix: login function expects email and password only, role should be handled differently
+      await login(email, password);
       toast.success(`Login successful as ${role}!`);
     } catch {
       toast.error("Invalid credentials. Please try again.");

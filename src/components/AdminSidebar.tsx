@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import { Dialog } from "@/components/ui/dialog";
 
 const AdminSidebar = () => {
   const location = useLocation();
@@ -76,20 +77,22 @@ const AdminSidebar = () => {
   if (isMobile) {
     return (
       <>
-        <SheetTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="fixed top-4 left-4 z-40 w-10 h-10 flex items-center justify-center neuro-card glass-card hover:bg-opacity-80 transition-all"
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
-        </SheetTrigger>
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetContent side="left" className="w-64">
-            <NavContent />
-          </SheetContent>
-        </Sheet>
+        <Dialog>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="fixed top-4 left-4 z-40 w-10 h-10 flex items-center justify-center neuro-card glass-card hover:bg-opacity-80 transition-all"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64">
+              <NavContent />
+            </SheetContent>
+          </Sheet>
+        </Dialog>
       </>
     );
   }
