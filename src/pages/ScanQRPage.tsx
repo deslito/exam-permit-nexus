@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { QrCode, Upload } from "lucide-react";
+import { QrCode } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import { StudentData } from "@/types/student";
 import {
@@ -14,47 +14,88 @@ import {
 } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import PermitCard from "@/components/PermitCard";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ScanQRPage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [scanning, setScanning] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useIsMobile();
   const [lastScannedPermit, setLastScannedPermit] = useState<any>(null);
 
-  // Mock scan function - replace with actual QR scanning logic
-  const handleScan = () => {
+  // Mock student data for simulation
+  const mockStudents = {
+    tracy: {
+      id: "S123456",
+      name: "Asiimire Tracy",
+      regNumber: "23/U/DCE/04387/PD",
+      course: "Bachelor of Computer Science",
+      gender: "Female",
+      programme: "Day",
+      semester: "Year 2 Semester I",
+      feesBalance: 500000, // Not cleared fees
+      permitStatus: "INVALID",
+      photoUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+    },
+    timothy: {
+      id: "S234567",
+      name: "Mubiru Timothy",
+      regNumber: "21/U/ITD/3925/PD",
+      course: "Bachelor in Information Technology and Computing",
+      gender: "Male",
+      programme: "Day",
+      semester: "Year 2 Semester I",
+      feesBalance: 0, // Cleared fees
+      permitStatus: "VALID"
+    },
+    david: {
+      id: "S345678",
+      name: "Twijukye David",
+      regNumber: "21/U/BBA/3345/PD",
+      course: "Bachelor in Business Administration",
+      gender: "Male",
+      programme: "Evening",
+      semester: "Year 2 Semester I",
+      feesBalance: 0, // Cleared fees
+      permitStatus: "VALID"
+    },
+    cynthia: {
+      id: "S456789",
+      name: "Muyingo Cynthia",
+      regNumber: "21/U/ARC/38005/PD",
+      course: "Bachelor in Architecture",
+      gender: "Female",
+      programme: "Day",
+      semester: "Year 2 Semester I",
+      feesBalance: 0, // Cleared fees
+      permitStatus: "VALID"
+    }
+  };
+
+  // Simulate scan with a specific student
+  const handleScanStudent = (studentKey: keyof typeof mockStudents) => {
     setScanning(true);
     setIsDrawerOpen(true);
     
     // Simulate QR code scanning with mock data
     setTimeout(() => {
       setScanning(false);
-      
-      // Mock student data - replace with actual API call to Supabase
-      const mockStudentData: StudentData = {
-        id: "S123456",
-        name: "Asiimire Tracy",
-        regNumber: "23/U/DCE/04387/PD",
-        course: "Bachelor of Computer Science",
-        semester: "Year 2 Semester I",
-        feesBalance: 0,
-        permitStatus: "VALID"
-      };
+      const studentData = mockStudents[studentKey];
       
       const mockPermit = {
-        id: "PERM-123456",
-        studentName: mockStudentData.name,
-        studentNumber: "2023/HD/1234",
-        regNumber: mockStudentData.regNumber,
-        gender: "Male",
+        id: `PERM-${studentData.id}`,
+        studentName: studentData.name,
+        studentNumber: studentData.id.replace('S', '2023/HD/'),
+        regNumber: studentData.regNumber,
+        gender: studentData.gender,
         yearOfStudy: 2,
         campus: "Main Campus",
         semester: "I" as const,
         academicYear: "2023/2024",
         faculty: "Science and Technology",
-        department: "Computer Science",
-        programme: "Bachelor of Computer Science",
+        department: studentData.course.split(" ").pop(),
+        programme: studentData.course,
         courseUnits: [
           {
             code: "CSC 201",
@@ -65,19 +106,28 @@ const ScanQRPage = () => {
           }
         ],
         examDate: "May 15, 2025",
-        status: "valid" as const,
-        photoUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+        status: studentData.feesBalance === 0 ? "valid" as const : "expired" as const,
+        photoUrl: studentData.photoUrl || "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
         printDate: new Date().toISOString()
       };
       
       setLastScannedPermit(mockPermit);
-      navigate("/student-details", { state: { studentData: mockStudentData } });
-      toast.success("QR Code scanned successfully!");
-    }, 2000);
+      navigate("/student-details", { 
+        state: { 
+          studentData: {
+            ...studentData,
+            permitStatus: studentData.feesBalance === 0 ? "VALID" : "INVALID"
+          } 
+        }
+      });
+      toast.success(`QR Code for ${studentData.name} scanned successfully!`);
+    }, 1500);
   };
 
-  const handleUploadImage = () => {
-    toast.info("File upload feature coming soon");
+  // Generic scan function for the main scan button
+  const handleScan = () => {
+    // Default to Timothy as requested
+    handleScanStudent('timothy');
   };
 
   return (
@@ -99,7 +149,16 @@ const ScanQRPage = () => {
                 </div>
                 <Button
                   size="sm"
-                  onClick={() => navigate("/student-details", { state: { studentData: { name: lastScannedPermit.studentName, regNumber: lastScannedPermit.regNumber, feesBalance: 0, permitStatus: "VALID" } } })}
+                  onClick={() => navigate("/student-details", { 
+                    state: { 
+                      studentData: { 
+                        name: lastScannedPermit.studentName, 
+                        regNumber: lastScannedPermit.regNumber, 
+                        feesBalance: lastScannedPermit.status === "valid" ? 0 : 500000,
+                        permitStatus: lastScannedPermit.status === "valid" ? "VALID" : "INVALID"
+                      } 
+                    } 
+                  })}
                 >
                   View Details
                 </Button>
@@ -134,48 +193,40 @@ const ScanQRPage = () => {
               {scanning ? "Scanning..." : "Start Scanning"}
             </Button>
             
-            <Button 
-              variant="outline" 
-              onClick={handleUploadImage}
-              className="w-full"
-            >
-              <Upload className="w-4 h-4 mr-2" />
-              Upload QR Image
-            </Button>
-          </div>
-        </div>
-        
-        {/* Upcoming Exams Section */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3">Upcoming Exams</h2>
-          <div className="bg-white rounded-lg p-4 shadow border">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="font-medium">CSC 201: Data Structures</p>
-                <p className="text-sm text-muted-foreground">Today, 10:00 AM - Room B12</p>
-              </div>
-              <Badge status="scheduled" />
-            </div>
-          </div>
-        </div>
-        
-        {/* Recent Activity */}
-        <div>
-          <h2 className="text-lg font-semibold mb-3">Recent Activity</h2>
-          <div className="space-y-3">
-            <div className="bg-white rounded-lg p-4 shadow border">
-              <p className="font-medium">CSC 101: Introduction to Computing</p>
-              <p className="text-sm text-muted-foreground">Completed • May 20, 2023</p>
-              <div className="mt-1">
-                <Badge status="completed" />
-              </div>
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow border">
-              <p className="font-medium">MTH 102: Calculus II</p>
-              <p className="text-sm text-muted-foreground">Completed • May 18, 2023</p>
-              <div className="mt-1">
-                <Badge status="completed" />
-              </div>
+            {/* Test buttons for scanning different students */}
+            <div className="grid grid-cols-4 gap-2 mt-4">
+              <Button 
+                variant="outline" 
+                onClick={() => handleScanStudent('tracy')}
+                className="w-full"
+                disabled={scanning}
+              >
+                Tracy
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => handleScanStudent('timothy')}
+                className="w-full"
+                disabled={scanning}
+              >
+                Timothy
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => handleScanStudent('david')}
+                className="w-full"
+                disabled={scanning}
+              >
+                David
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => handleScanStudent('cynthia')}
+                className="w-full"
+                disabled={scanning}
+              >
+                Cynthia
+              </Button>
             </div>
           </div>
         </div>
@@ -207,6 +258,7 @@ const Badge = ({ status }: { status: string }) => {
   switch (status) {
     case "valid":
     case "completed":
+    case "approved":
       classes += " bg-green-100 text-green-800";
       break;
     case "pending":
@@ -214,6 +266,7 @@ const Badge = ({ status }: { status: string }) => {
       classes += " bg-blue-100 text-blue-800";
       break;
     case "expired":
+    case "invalid":
       classes += " bg-red-100 text-red-800";
       break;
     default:

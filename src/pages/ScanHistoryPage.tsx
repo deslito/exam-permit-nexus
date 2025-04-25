@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Mock scan data
+// Updated mock scan data with new student names
 const mockScans = [
   {
     id: "SC001",
@@ -23,22 +23,22 @@ const mockScans = [
     regNumber: "23/U/DCE/04387/PD",
     scanTime: "2023-06-01T09:15:00Z",
     course: "Advanced Mathematics",
+    permitStatus: "INVALID",
+    action: "DENIED"
+  },
+  {
+    id: "SC002",
+    studentName: "Muyingo Cynthia",
+    regNumber: "21/U/ARC/38005/PD",
+    scanTime: "2023-06-01T10:22:00Z",
+    course: "Physics 101",
     permitStatus: "VALID",
     action: "ALLOWED"
   },
   {
-    id: "SC002",
-    studentName: "Jane Smith",
-    regNumber: "UNI/2023/002",
-    scanTime: "2023-06-01T10:22:00Z",
-    course: "Physics 101",
-    permitStatus: "EXPIRED",
-    action: "DENIED"
-  },
-  {
     id: "SC003",
-    studentName: "Bob Johnson",
-    regNumber: "UNI/2023/003",
+    studentName: "Mubiru Timothy",
+    regNumber: "21/U/ITD/3925/PD",
     scanTime: "2023-06-02T08:45:00Z",
     course: "Computer Science",
     permitStatus: "VALID",
@@ -46,12 +46,12 @@ const mockScans = [
   },
   {
     id: "SC004",
-    studentName: "Mary Williams",
-    regNumber: "UNI/2023/004",
+    studentName: "Twijukye David",
+    regNumber: "21/U/BBA/3345/PD",
     scanTime: "2023-06-02T13:10:00Z",
-    course: "Biology",
-    permitStatus: "PENDING",
-    action: "DENIED"
+    course: "Business Administration",
+    permitStatus: "VALID",
+    action: "ALLOWED"
   }
 ];
 

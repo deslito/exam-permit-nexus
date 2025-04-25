@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,25 +30,25 @@ const AdminDashboardPage = () => {
     {
       id: 2,
       action: "Payment Verified",
-      student: "John Asiimwe",
+      student: "Mubiru Timothy",
       timestamp: "25 minutes ago",
     },
     {
       id: 3,
       action: "Permit Expired",
-      student: "Robert Kagaba",
+      student: "Twijukye David",
       timestamp: "1 hour ago",
     },
     {
       id: 4,
       action: "Student Added",
-      student: "Patrick Kanyes",
+      student: "Muyingo Cynthia",
       timestamp: "3 hours ago",
     },
   ];
 
   const statusDistribution = {
-    valid: Math.round((stats.validPermits / stats.totalStudents) * 100),
+    approved: Math.round((stats.validPermits / stats.totalStudents) * 100),
     pending: Math.round((stats.pendingPermits / stats.totalStudents) * 100),
     expired: Math.round((stats.expiredPermits / stats.totalStudents) * 100),
   };
@@ -91,8 +92,8 @@ const AdminDashboardPage = () => {
                 <CardContent className="p-4">
                   <div className="space-y-4">
                     <StatusProgressBar
-                      label="Valid"
-                      value={statusDistribution.valid}
+                      label="Approved"
+                      value={statusDistribution.approved}
                       color="bg-permit-valid"
                     />
                     <StatusProgressBar
@@ -114,10 +115,10 @@ const AdminDashboardPage = () => {
             <section>
               <h2 className="text-lg font-semibold mb-3">Quick Actions</h2>
               <div className="grid grid-cols-2 gap-3">
-                <Link to="/manage-students" className="block">
+                <Link to="/manage-invigilators" className="block">
                   <div className="neuro-card p-4 text-center h-24 flex flex-col items-center justify-center neuro-button">
                     <Users className="w-6 h-6 text-university-blue" />
-                    <span className="mt-2 font-medium text-sm">Manage Students</span>
+                    <span className="mt-2 font-medium text-sm">Manage Invigilators</span>
                   </div>
                 </Link>
                 <Link to="/manage-permits" className="block">
@@ -141,12 +142,14 @@ const AdminDashboardPage = () => {
                 <CardContent className="p-4">
                   <div className="space-y-4">
                     {recentActivities.map((activity) => (
-                      <div key={activity.id} className="flex justify-between">
-                        <div>
-                          <p className="font-medium">{activity.action}</p>
-                          <p className="text-sm text-muted-foreground">{activity.student}</p>
+                      <div key={activity.id}>
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-medium">{activity.action}</p>
+                            <p className="text-sm text-muted-foreground">{activity.student}</p>
+                          </div>
+                          <p className="text-xs text-muted-foreground text-right">{activity.timestamp}</p>
                         </div>
-                        <p className="text-xs text-muted-foreground">{activity.timestamp}</p>
                         <Separator className="my-2" />
                       </div>
                     ))}

@@ -7,6 +7,10 @@ export interface StudentData {
   semester: string;
   feesBalance: number;
   permitStatus: "VALID" | "INVALID" | "EXPIRED";
+  gender?: string;
+  programme?: string;
+  photoUrl?: string;
+  email?: string;
 }
 
 export interface CourseUnit {
@@ -23,10 +27,10 @@ export interface PermitData {
   studentNumber: string;
   regNumber: string;
   gender: string;
-  programme: string;
+  programme?: string;
   yearOfStudy: number;
   campus: string;
-  semester: string;
+  semester: "I" | "II";
   academicYear: string;
   faculty: string;
   department: string;
