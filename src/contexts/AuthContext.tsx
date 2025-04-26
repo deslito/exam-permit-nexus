@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Mock data for students
@@ -16,7 +15,7 @@ const mockStudents = {
     programme: "Day",
     feesBalance: 500000,
     permitStatus: "INVALID",
-    photoUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+    photoUrl: "/lovable-uploads/e13b93b5-6bf4-4524-bd51-dfbb4efac2c0.png",
     faculty: "Science and Technology",
     department: "Computer Science"
   },

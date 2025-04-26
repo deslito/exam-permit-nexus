@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -36,6 +35,7 @@ const ProfilePage = () => {
 
   const isAdmin = user?.role === "admin";
   const isInvigilator = user?.role === "invigilator";
+  const isStudent = user?.role === "student";
 
   const handlePasswordChange = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,19 +83,31 @@ const ProfilePage = () => {
         <div className="space-y-6 mt-6">
           {/* Profile Header */}
           <div className="flex flex-col items-center justify-center py-4">
-            <div className="w-24 h-24 rounded-full bg-university-blue text-white flex items-center justify-center text-3xl font-bold">
-              {user?.name?.charAt(0)}
+            <div className="w-24 h-24 rounded-full overflow-hidden bg-university-blue text-white">
+              {user?.photoUrl ? (
+                <img 
+                  src={user.photoUrl} 
+                  alt={user.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-3xl font-bold">
+                  {user?.name?.charAt(0)}
+                </div>
+              )}
             </div>
             <h2 className="mt-4 text-xl font-semibold">{user?.name}</h2>
             {!isAdmin && <p className="text-muted-foreground">{user?.regNumber}</p>}
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-3 neuro-button"
-              onClick={() => toast.info("Edit profile coming soon")}
-            >
-              <Edit2 className="w-4 h-4 mr-2" /> Edit Profile
-            </Button>
+            {!isStudent && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="mt-3 neuro-button"
+                onClick={() => toast.info("Edit profile coming soon")}
+              >
+                <Edit2 className="w-4 h-4 mr-2" /> Edit Profile
+              </Button>
+            )}
           </div>
 
           {/* Profile Details */}
@@ -257,4 +269,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
