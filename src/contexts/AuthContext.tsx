@@ -15,7 +15,7 @@ const mockStudents = {
     programme: "Day",
     feesBalance: 500000,
     permitStatus: "INVALID",
-    photoUrl: "/lovable-uploads/e13b93b5-6bf4-4524-bd51-dfbb4efac2c0.png",
+    photoUrl: "/src/assets/tracy.png",
     faculty: "Science and Technology",
     department: "Computer Science"
   },
@@ -32,6 +32,7 @@ const mockStudents = {
     programme: "Day",
     feesBalance: 0,
     permitStatus: "VALID",
+    photoUrl: "/src/assets/timothy.png",
     faculty: "Science and Technology",
     department: "Information Technology"
   },
@@ -48,6 +49,7 @@ const mockStudents = {
     programme: "Evening",
     feesBalance: 0,
     permitStatus: "VALID",
+    photoUrl: "/src/assets/david.png",
     faculty: "Business and Management",
     department: "Business Administration"
   },
@@ -64,6 +66,7 @@ const mockStudents = {
     programme: "Day",
     feesBalance: 0,
     permitStatus: "VALID",
+    photoUrl: "/src/assets/cynthia.png",
     faculty: "Engineering",
     department: "Architecture"
   }
@@ -80,7 +83,8 @@ const mockInvigilators = {
     department: "Computer Science",
     faculty: "Science and Technology",
     academicYear: "2025",
-    semester: "II"
+    semester: "II",
+    photoUrl: "/src/assets/sophia.png"
   },
   "mugishajoel@kyu.edu": {
     id: "I654321",
@@ -91,7 +95,8 @@ const mockInvigilators = {
     department: "Information Technology",
     faculty: "Science and Technology",
     academicYear: "2025",
-    semester: "II"
+    semester: "II",
+    photoUrl: "/src/assets/joel.png"
   }
 };
 

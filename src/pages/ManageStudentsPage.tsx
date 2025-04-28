@@ -1,31 +1,12 @@
-
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Search, Plus, Edit, Trash } from "lucide-react";
+import { Plus } from "lucide-react";
 import { toast } from "sonner";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
 import AdminSidebar from "@/components/AdminSidebar";
+import StudentCard from "@/components/students/StudentCard";
+import SearchBar from "@/components/students/SearchBar";
 
-// Updated mock student data
 const mockStudents = [
   {
     id: "S123456",
@@ -74,7 +55,6 @@ const ManageStudentsPage = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock search functionality
     if (searchTerm) {
       const filteredStudents = mockStudents.filter(student => 
         student.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -99,7 +79,7 @@ const ManageStudentsPage = () => {
         email: student.email,
         regNumber: student.regNumber,
         role: "student",
-        password: "", // Don't prefill password for security
+        password: "",
       });
       setIsEditDialogOpen(true);
     }
@@ -110,7 +90,6 @@ const ManageStudentsPage = () => {
   };
   
   const handleCreateAccount = () => {
-    // Validation
     if (!newUser.name || !newUser.email || !newUser.password) {
       toast.error("Please fill in all required fields");
       return;
@@ -121,10 +100,8 @@ const ManageStudentsPage = () => {
       return;
     }
     
-    // Mock account creation
     toast.success(`Account created for ${newUser.name} as ${newUser.role}`);
     
-    // Reset form and close dialog
     setNewUser({
       name: "",
       email: "",
@@ -136,7 +113,6 @@ const ManageStudentsPage = () => {
   };
   
   const handleUpdateAccount = () => {
-    // Validation
     if (!newUser.name || !newUser.email) {
       toast.error("Please fill in all required fields");
       return;
@@ -147,10 +123,8 @@ const ManageStudentsPage = () => {
       return;
     }
     
-    // Mock account update
     toast.success(`Account updated for ${newUser.name}`);
     
-    // Reset form and close dialog
     setNewUser({
       name: "",
       email: "",
@@ -161,8 +135,7 @@ const ManageStudentsPage = () => {
     setIsEditDialogOpen(false);
     setCurrentStudent(null);
   };
-  
-  // Get color for permit status badge
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "VALID": return "bg-green-500";
@@ -176,60 +149,36 @@ const ManageStudentsPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <AdminSidebar />
-      <div className="md:pl-64 pt-16 md:pt-0">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Manage Students</h1>
-            <Button onClick={handleAddStudent} size="sm" className="flex items-center">
-              <Plus className="w-4 h-4 mr-1" /> Add Student
-            </Button>
-          </div>
-          
-          <form onSubmit={handleSearch} className="mb-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                placeholder="Search by name or reg number"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
+      <div className="md:pl-64">
+        <div className="bg-gradient-to-r from-university-blue to-university-blue/80 text-white p-6 relative">
+          <div className="container mx-auto">
+            <h1 className="text-2xl font-bold mb-6">Manage Students</h1>
+            <div className="flex gap-4 items-center">
+              <div className="flex-1">
+                <SearchBar 
+                  value={searchTerm}
+                  onChange={(value) => setSearchTerm(value)}
+                />
+              </div>
+              <Button 
+                onClick={handleAddStudent} 
+                size="sm" 
+                className="flex items-center glass-morphic hover:bg-white/20"
+              >
+                <Plus className="w-4 h-4 mr-1" /> Add Student
+              </Button>
             </div>
-          </form>
-          
+          </div>
+        </div>
+        <div className="container mx-auto px-4 py-6">
           <div className="space-y-4">
             {students.map((student) => (
-              <Card key={student.id} className="p-4 neuro-card">
-                <div className="flex justify-between">
-                  <div>
-                    <div className="font-semibold">{student.name}</div>
-                    <div className="text-sm text-muted-foreground mb-1">{student.regNumber}</div>
-                    <div className="text-sm">{student.email}</div>
-                  </div>
-                  <div className="flex flex-col items-end justify-between">
-                    <Badge className={getStatusColor(student.permitStatus)}>
-                      {student.permitStatus}
-                    </Badge>
-                    <div className="flex space-x-2 mt-2">
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handleEditStudent(student.id)}
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={() => handleDeleteStudent(student.id)}
-                        className="text-destructive"
-                      >
-                        <Trash className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              <StudentCard
+                key={student.id}
+                student={student}
+                onEdit={handleEditStudent}
+                onDelete={handleDeleteStudent}
+              />
             ))}
             
             {students.length === 0 && (
@@ -241,7 +190,6 @@ const ManageStudentsPage = () => {
         </div>
       </div>
 
-      {/* Add Student Dialog */}
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -300,7 +248,6 @@ const ManageStudentsPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Edit Student Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
